@@ -18,5 +18,8 @@ module.exports = {
     'react'
   ],
   rules: {
+    quotes: ['error', 'single'],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'space-before-function-paren': ['error', 'never']
   }
 }
