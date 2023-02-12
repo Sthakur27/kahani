@@ -1,6 +1,14 @@
 import express from 'express'
 import path from 'path'
 import { User } from '../models/User'
+import sequelize from '../db'
+
+User.initialize()
+User.sync().then(() => {
+  console.log('Updating tables');
+}).catch((error) => {
+  console.error('Unable to update database: ', error);
+});
 
 const app = express()
 const port = 3201

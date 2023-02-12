@@ -9,13 +9,11 @@ const sequelize = new Sequelize({
   dialect: 'postgres'
 })
 
-sequelize.sync()
-  .then(() => {
-    console.log('Tables created successfully');
-  })
-  .catch((err) => {
-    console.error('Unable to create tables:', err);
-  });
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+ }).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
+ });
 
 
 export default sequelize;
