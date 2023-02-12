@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import { User } from '../models/User'
 
 const app = express()
 const port = 3201
@@ -20,6 +21,25 @@ app.get('/api/greeting', (req, res) => {
   res.setHeader('Content-Type', 'application/json')
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
 })
+
+app.get('/api/create', async (req, res) => {
+  await User.create({
+    email: 'sibthakur@gmail.com',
+    firstName: 'Sid',
+    lastName: 'Thakur',
+    rating: 10,
+    password: 'password' // The password will be automatically hashed by the setPassword() method in the model
+  })
+  res.setHeader('Content-Type', 'application/json')
+  res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
+})
+
+app.get('/api/greeting', (req, res) => {
+  const name = 'World'
+  res.setHeader('Content-Type', 'application/json')
+  res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
+})
+
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
