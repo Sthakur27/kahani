@@ -27,6 +27,6 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log('Ayy lmao2')
+  console.log('STARTING BACKEND KAHANI SERVER')
   return console.log(`Express is listening at http://localhost:${port}`)
 })
