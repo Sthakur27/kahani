@@ -18,5 +18,10 @@ module.exports = {
     'react'
   ],
   rules: {
-  }
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "comma-dangle": ["error", "always-multiline"],
+    "space-before-function-paren": ["error", "never"]
+  },
 }
