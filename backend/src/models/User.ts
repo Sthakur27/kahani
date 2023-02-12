@@ -22,45 +22,44 @@ class User extends Model {
   public checkPassword = (password: string): boolean => {
     return bcrypt.compareSync(password, this.password)
   }
-
-  // Initialize the model
-  public static initialize = (): void => {
-    User.init({
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-          isEmail: true
-        }
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0
-      },
-      deactivated: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-      }
-    }, {
-      sequelize,
-      modelName: 'User'
-    })
-  }
 }
+
+User.init({
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    deactivated: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
+  }, {
+    sequelize,
+    modelName: 'User',
+    tableName: 'users',
+    timestamps: false,
+  })
 
 export { User }

@@ -1,2 +1,4 @@
 import { User } from './User'
-export { User }
+import { StoryNode } from './StoryNode'
+import { StoryOption } from './StoryOption'
+export { User, StoryNode, StoryOption }

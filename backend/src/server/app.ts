@@ -1,17 +1,8 @@
 import express from 'express'
 import path from 'path'
 import { User } from '../models/User'
-import sequelize from '../db'
-
-User.initialize()
-User.sync().then(() => {
-  console.log('Updating tables');
-}).catch((error) => {
-  console.error('Unable to update database: ', error);
-});
 
 const app = express()
-const port = 3201
 
 app.use(express.static(path.resolve(__dirname, '../build/frontend')))
 
@@ -54,7 +45,4 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../build/frontend', 'index.html'))
 })
 
-app.listen(port, () => {
-  console.log('STARTING BACKEND KAHANI SERVER')
-  return console.log(`Express is listening at http://localhost:${port}`)
-})
+export default app
