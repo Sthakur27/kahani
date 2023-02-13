@@ -1,8 +1,14 @@
 import express, { Request, Response, Express } from 'express'
 import path from 'path'
 import { User } from '../models/User'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 
 const app: Express = express()
+
+app.use(cors())
+
+app.use(bodyParser.json())
 
 app.use(express.static(path.resolve(__dirname, '../build/frontend')))
 
@@ -21,20 +27,39 @@ app.get('/api/greeting', (req: Request, res: Response): void => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
 })
 
-app.post('/api/create', async (req: Request, res: Response): Promise<void> => {
-  console.log('AYYLMAO')
-  console.log(req.body)
-  /* const user: User = await User.create({
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    rating: req.body.rating,
-    password: req.body.password,
-  }) */
-  res.setHeader('Content-Type', 'application/json')
-  //res.send(JSON.stringify(user))
-  res.send(JSON.stringify({ data: 'round trip done!' }))
-})
+type UserCreateArgs = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+}
+
+app.post(
+  '/api/create',
+  async (req: Request<UserCreateArgs>, res: Response): Promise<void> => {
+    console.log('Creating new user')
+    const { email, firstName, lastName, password } = req.body
+    console.log(
+      `Building User with following args: ${JSON.stringify({
+        email,
+        firstName,
+        lastName,
+        password,
+      })}`
+    )
+    const user: User = await User.create({
+      id: 1,
+      email,
+      firstName,
+      lastName,
+      password,
+      rating: 0,
+      deactivated: false,
+    })
+    res.setHeader('Content-Type', 'application/json')
+    res.send({ data: JSON.stringify(user) })
+  }
+)
 
 app.get('/api/greeting', (req: Request, res: Response): void => {
   const name: string = 'World'

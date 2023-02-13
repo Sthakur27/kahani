@@ -6,18 +6,23 @@ import reportWebVitals from './reportWebVitals'
 
 const rootElement = document.getElementById('root')
 
-function handleButtonClick(event: MouseEvent<HTMLButtonElement>): void {
+function handleGetButtonClick(event: MouseEvent<HTMLButtonElement>): void {
+  fetch('http://localhost:3201/api/greeting')
+    .then((response) => response.json())
+    .then((data) => console.log(data.greeting))
+    .catch((error) => console.error('Error fetching greeting:', error))
+}
+
+function handlePostButtonClick(event: MouseEvent<HTMLButtonElement>): void {
   fetch('http://localhost:3201/api/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    mode: 'no-cors',
     body: JSON.stringify({
-      email: 'sibthakur@gmail.com',
+      email: 'sidbthakur@gmail.com',
       firstName: 'Sid',
       lastName: 'Thakur',
-      rating: 10,
       password: 'password',
     }),
   })
@@ -38,7 +43,8 @@ function handleButtonClick(event: MouseEvent<HTMLButtonElement>): void {
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <button onClick={handleButtonClick}>Create User</button>
+    <button onClick={handleGetButtonClick}>Get Stuff</button>
+    <button onClick={handlePostButtonClick}>Create User</button>
   </React.StrictMode>,
   rootElement
 )
