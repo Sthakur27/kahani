@@ -21,20 +21,24 @@ app.get('/api/greeting', (req: Request, res: Response): void => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
 })
 
-app.get('/api/create', async (req: Request, res: Response): Promise<void> => {
-  const user: User = await User.create({
-    email: 'sibthakur@gmail.com',
-    firstName: 'Sid',
-    lastName: 'Thakur',
-    rating: 10,
-    password: 'password', // The password will be automatically hashed by the setPassword() method in the model
-  })
+app.post('/api/create', async (req: Request, res: Response): Promise<void> => {
+  console.log('AYYLMAO')
+  console.log(req.body)
+  /* const user: User = await User.create({
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    rating: req.body.rating,
+    password: req.body.password,
+  }) */
   res.setHeader('Content-Type', 'application/json')
-  res.send(JSON.stringify(user))
+  //res.send(JSON.stringify(user))
+  res.send(JSON.stringify({ data: 'round trip done!' }))
 })
 
 app.get('/api/greeting', (req: Request, res: Response): void => {
   const name: string = 'World'
+  console.log('AYYLMAO')
   res.setHeader('Content-Type', 'application/json')
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }))
 })
@@ -42,7 +46,7 @@ app.get('/api/greeting', (req: Request, res: Response): void => {
 // All other GET requests not handled before will return our React app
 app.get('*', (req: Request, res: Response): void => {
   console.log('hey')
-  res.sendFile(path.resolve(__dirname, '../build/frontend', 'index.h3tml'))
+  res.sendFile(path.resolve(__dirname, '../build/frontend', 'index.html'))
 })
 
 export default app

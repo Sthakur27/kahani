@@ -1,19 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { MouseEvent } from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const rootElement = document.getElementById('root')
+
+function handleButtonClick(event: MouseEvent<HTMLButtonElement>): void {
+  fetch('http://localhost:3201/api/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    mode: 'no-cors',
+    body: JSON.stringify({
+      email: 'sibthakur@gmail.com',
+      firstName: 'Sid',
+      lastName: 'Thakur',
+      rating: 10,
+      password: 'password',
+    }),
+  })
+    .then((response: Response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    })
+    .then((data: any) => {
+      console.log(data)
+    })
+    .catch((error: Error) => {
+      console.error('There was a problem with the fetch operation:', error)
+    })
+}
+
+ReactDOM.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-);
+    <button onClick={handleButtonClick}>Create User</button>
+  </React.StrictMode>,
+  rootElement
+)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()

@@ -1,9 +1,6 @@
 import sequelize from './index'
 import Umzug from 'umzug'
-import 'ts-node/register'
 import * as path from 'path'
-
-// const sequelize = new Sequelize(/* your database connection options */);
 
 const umzug = new Umzug({
   storage: 'sequelize',
