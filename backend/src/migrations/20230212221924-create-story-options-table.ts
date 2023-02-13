@@ -12,16 +12,15 @@ export = {
         type: DataTypes.STRING(2000),
         allowNull: false,
       },
-      sourceId: {
+      parentNodeId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         references: {
           model: 'story_nodes',
           key: 'id',
         },
-        onDelete: 'CASCADE',
       },
-      targetId: {
+      childNodeId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         references: {
