@@ -5,7 +5,7 @@ const port = 3201
 
 const revert_migrations = false
 
-async function main() {
+const main = async (): Promise<void> => {
   if (revert_migrations) {
     console.log('starting down migrations')
     await migrator.down({ to: 0 })

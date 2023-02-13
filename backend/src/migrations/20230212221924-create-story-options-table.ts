@@ -29,6 +29,15 @@ export = {
         },
         onDelete: 'CASCADE',
       },
+      userId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
