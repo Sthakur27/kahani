@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize'
 
 const sequelize = new Sequelize({
   database: 'mydatabase',
@@ -6,14 +6,16 @@ const sequelize = new Sequelize({
   password: 'mypassword',
   host: 'localhost',
   port: 5432,
-  dialect: 'postgres'
+  dialect: 'postgres',
 })
 
-sequelize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
- }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
- });
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database: ', error)
+  })
 
-
-export default sequelize;
+export default sequelize

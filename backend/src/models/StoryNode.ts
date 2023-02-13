@@ -1,25 +1,25 @@
 import { Model, DataTypes, Association } from 'sequelize'
-import sequelize  from '../db'
+import sequelize from '../db'
 import { StoryOption } from './StoryOption'
 import { User } from './User'
 
 class StoryNode extends Model {
-    public id!: number
-    public text!: string
-    public rating!: number
-    public userId!: number
-  
-    public readonly createdAt!: Date
-    public readonly updatedAt!: Date
-  
-    public getUser!: () => Promise<User>
-    public readonly user?: User
-  
-    public static associations: {
-      user: Association<StoryNode, User>
-      options: Association<StoryNode, StoryOption>
-    }
+  public id!: number
+  public text!: string
+  public rating!: number
+  public userId!: number
+
+  public readonly createdAt!: Date
+  public readonly updatedAt!: Date
+
+  public getUser!: () => Promise<User>
+  public readonly user?: User
+
+  public static associations: {
+    user: Association<StoryNode, User>
+    options: Association<StoryNode, StoryOption>
   }
+}
 
 StoryNode.init(
   {
@@ -51,10 +51,18 @@ StoryNode.init(
     modelName: 'StoryNode',
     sequelize,
   }
-);
+)
 
-StoryNode.belongsTo(User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
+StoryNode.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'user',
+  onDelete: 'CASCADE',
+})
 
-StoryNode.hasMany(StoryOption, { foreignKey: 'parentNodeId', as: 'options', onDelete: 'CASCADE' });
+StoryNode.hasMany(StoryOption, {
+  foreignKey: 'parentNodeId',
+  as: 'options',
+  onDelete: 'CASCADE',
+})
 
 export { StoryNode }

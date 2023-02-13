@@ -1,4 +1,4 @@
-import { QueryInterface, DataTypes } from 'sequelize';
+import { QueryInterface, DataTypes } from 'sequelize'
 
 module.exports = {
   up: async (queryInterface: QueryInterface) => {
@@ -47,15 +47,10 @@ module.exports = {
         type: DataTypes.DATE,
         allowNull: false,
       },
-    });
+    })
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.dropTable('users');
-
-    await queryInterface.sequelize.query(`
-      DROP TRIGGER IF EXISTS update_user_modified
-      ON "users";
-    `);
+    await queryInterface.dropTable('users')
   },
-};
+}

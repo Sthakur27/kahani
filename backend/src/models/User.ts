@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize'
 import bcrypt from 'bcrypt'
-import sequelize  from '../db'
+import sequelize from '../db'
 
 class User extends Model {
   public id!: number
@@ -24,42 +24,45 @@ class User extends Model {
   }
 }
 
-User.init({
+User.init(
+  {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: 0,
     },
     deactivated: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
-    }
-  }, {
+      defaultValue: false,
+    },
+  },
+  {
     sequelize,
     modelName: 'User',
     tableName: 'users',
     timestamps: false,
-  })
+  }
+)
 
 export { User }
