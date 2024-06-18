@@ -1,11 +1,22 @@
-// src/components/StoryView.js
-import React, { useState, useEffect } from "react";
+// src/components/StoryView.tsx
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Heading,
+  Link,
+  List,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
+import { Story } from "../types/Story";
+import CreateOption from "./CreateOption";
 
-function StoryView() {
-  const { storyId } = useParams();
-  const [story, setStory] = useState(null);
+const StoryView: React.FC = () => {
+  const { storyId } = useParams<{ storyId: string }>();
+  const [story, setStory] = useState<Story | null>(null);
 
   useEffect(() => {
     axios
@@ -16,21 +27,35 @@ function StoryView() {
       .catch((error) => console.log(error));
   }, [storyId]);
 
-  if (!story) return <div>Loading...</div>;
+  if (!story) return <Box>Loading...</Box>;
 
   return (
-    <div>
-      <h1>{story.title}</h1>
-      <p>{story.intro}</p>
-      {story.options.map((option) => (
-        <div key={option.id}>
-          <h2>{option.text}</h2>
-          <Link to={`/story/${option.id}`}>Explore this path</Link>
-        </div>
-      ))}
-      <Link to="/">Back to Home</Link>
-    </div>
+    <Box p={5}>
+      <Heading as="h1" mb={4}>
+        {story.title}
+      </Heading>
+      <Text mb={4}>{story.intro}</Text>
+
+      <Heading as="h4" size="md" mb={4}>
+        Options:
+      </Heading>
+      <List spacing={3} mb={4}>
+        {story.options.map((option) => (
+          <ListItem key={option.id}>
+            <Link as={RouterLink} to={`/option/${option.id}`} color="teal.500">
+              {option.text}
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+
+      <CreateOption storyId={story.id} />
+
+      <Button as={RouterLink} to="/" colorScheme="teal" mt={5}>
+        Back to Home
+      </Button>
+    </Box>
   );
-}
+};
 
 export default StoryView;

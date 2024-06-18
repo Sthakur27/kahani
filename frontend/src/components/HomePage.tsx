@@ -1,10 +1,11 @@
-// src/components/HomePage.js
-import React, { useState, useEffect } from "react";
+// src/components/HomePage.tsx
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { StoryPreview } from "../types/Story";
 
-function HomePage() {
-  const [stories, setStories] = useState([]);
+const HomePage: React.FC = () => {
+  const [stories, setStories] = useState<StoryPreview[]>([]);
 
   useEffect(() => {
     axios
@@ -28,6 +29,6 @@ function HomePage() {
       </ul>
     </div>
   );
-}
+};
 
 export default HomePage;
