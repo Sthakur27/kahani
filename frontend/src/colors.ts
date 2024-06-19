@@ -3,3 +3,7 @@ export const DARK_GREEN = "#2E7D32";
 export const TEAL = "#008080";
 export const WHITE = "#FFFFFF";
 export const PURPLE = "#9370db";
+export const AMBER = "#FF8C00";
+export const LIGHT_GRAY = "#f0f0f0";
+export const DARK_GRAY = "#404040";
+export const PLACEHOLDER_GRAY = "#888888";

@@ -1,21 +1,9 @@
 // src/components/HomePage.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Center,
-  Heading,
-  Link,
-  List,
-  ListItem,
-  SimpleGrid,
-  Spacer,
-  Flex,
-  Stack,
-} from "@chakra-ui/react";
-import { DARK_GREEN, MINT_GREEN, TEAL, WHITE, PURPLE } from "../colors";
+import { useNavigate } from "react-router-dom";
+import { Box, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { DARK_GREEN, MINT_GREEN } from "../colors";
 import { StoryPreview } from "../types/Story";
 import KahaniButton from "./KahaniButton";
 
@@ -35,8 +23,6 @@ const HomePage: React.FC = () => {
   // Colors
   const bgColor = MINT_GREEN;
   const textColor = DARK_GREEN;
-  const linkColor = WHITE;
-  const buttonColor = TEAL;
 
   return (
     <Flex
@@ -67,6 +53,7 @@ const HomePage: React.FC = () => {
                 size="lg"
                 onClick={() => navigate(`/story/${story.id}`)}
                 name={story.title}
+                variant="click"
               />
             ))}
           </SimpleGrid>
@@ -74,6 +61,13 @@ const HomePage: React.FC = () => {
             size="lg"
             onClick={() => navigate(`/create-story`)}
             name="Create New Story!"
+            variant="create"
+          />
+          <KahaniButton
+            size="lg"
+            onClick={() => navigate(`/`)}
+            name="Back to Home"
+            variant="navigate"
           />
         </Stack>
       </Box>
