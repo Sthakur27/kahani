@@ -1,18 +1,9 @@
-// src/components/StoryView.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Heading,
-  Spinner,
-  Flex,
-  Stack,
-  Text,
-  Divider,
-} from "@chakra-ui/react";
+import { Box, Spinner, Flex, Stack, SlideFade } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
-import { MINT_GREEN, DARK_GREEN, TEAL } from "../colors";
+import { MINT_GREEN, DARK_GREEN } from "../colors";
 import StorySection from "./StorySection";
 import BackToHomeButton from "./toolkit/BackToHomeButton";
 
@@ -22,8 +13,6 @@ const StoryView: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-
-  // console.log({ storyPath });
 
   const getStoryOption = (
     path: StoryOption[],
@@ -42,34 +31,26 @@ const StoryView: React.FC = () => {
   };
 
   const handleOptionSelect = (depth: number, optionId: number) => {
+    console.log("Option selected: ", optionId);
+    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+
     if (selectedOptions[selectedOptions.length - 1] === optionId) {
+      console.log("back");
       setStoryPath(storyPath.slice(0, depth));
       setSelectedOptions(selectedOptions.slice(0, depth));
     } else {
+      console.log("forward");
       getStoryOption(
         storyPath.slice(0, depth),
         selectedOptions.slice(0, depth),
         optionId
       );
     }
-    // console.log("selected option: ", optionId);
+    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
   };
 
   const onCreate = (option: StoryOption) => {
-    const oldPath = [...storyPath];
-    if (oldPath.length === 0) {
-      story?.options.push(option);
-      setSelectedOptions([option.id]);
-      setStoryPath([option]);
-      return;
-    }
-    const parentOption = oldPath[oldPath.length - 1];
-    parentOption.childOptions.push({
-      id: option.id,
-      text: option.text,
-    });
-    const newPath = [...oldPath, option];
-    setStoryPath(newPath);
+    setStoryPath([...storyPath, option]);
     setSelectedOptions([...selectedOptions, option.id]);
   };
 
@@ -104,30 +85,37 @@ const StoryView: React.FC = () => {
       </Box>
       <Box p={5} maxW="800px" width="100%">
         <Stack spacing={5} align="center">
-          <StorySection
-            storyId={story.id}
-            title={story.title}
-            paragraph={story.intro}
-            optionId={null}
-            options={story.options}
-            depth={0}
-            onOptionSelect={handleOptionSelect}
-            selectedOptions={selectedOptions}
-            onCreate={onCreate}
-          />
+          <SlideFade in={true} offsetY="20px">
+            <Box width="100%">
+              <StorySection
+                storyId={story.id}
+                title={story.title}
+                paragraph={story.intro}
+                optionId={null}
+                options={story.options}
+                depth={0}
+                onOptionSelect={handleOptionSelect}
+                selectedOptions={selectedOptions}
+                onCreate={onCreate}
+              />
+            </Box>
+          </SlideFade>
           {storyPath.map((section, index) => (
-            <StorySection
-              key={index}
-              storyId={story.id}
-              paragraph={section.paragraph}
-              optionId={section.id}
-              options={section.childOptions}
-              depth={index + 1}
-              onOptionSelect={handleOptionSelect}
-              selectedOptions={selectedOptions}
-              title={section.text}
-              onCreate={onCreate}
-            />
+            <SlideFade key={section.id} in={true} offsetY="20px">
+              <Box width="100%">
+                <StorySection
+                  storyId={story.id}
+                  paragraph={section.paragraph}
+                  optionId={section.id}
+                  options={section.childOptions}
+                  depth={index + 1}
+                  onOptionSelect={handleOptionSelect}
+                  selectedOptions={selectedOptions}
+                  title={section.text}
+                  onCreate={onCreate}
+                />
+              </Box>
+            </SlideFade>
           ))}
         </Stack>
       </Box>

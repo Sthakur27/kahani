@@ -1,7 +1,7 @@
 // src/components/toolkit/OptionCreator.tsx
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { TiPlus } from "react-icons/ti";
 import {
   Box,
   FormControl,
@@ -72,9 +72,9 @@ const OptionCreator: React.FC<OptionCreatorProps> = ({
   return (
     <>
       <KahaniButton
-        size="lg"
+        size="md"
         onClick={onOpen}
-        name="Create Option"
+        name={<TiPlus />}
         variant="create"
       />
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -111,13 +111,13 @@ const OptionCreator: React.FC<OptionCreatorProps> = ({
           <ModalFooter>
             <HStack spacing={5} align="justify">
               <KahaniButton
-                size="lg"
+                size="md"
                 onClick={handleSubmit}
                 name={isLoading ? <Spinner size="md" /> : "Create Option"}
                 variant="create"
               />
               <KahaniButton
-                size="lg"
+                size="md"
                 onClick={onClose}
                 name="Close"
                 variant="click"

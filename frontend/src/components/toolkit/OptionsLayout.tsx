@@ -69,15 +69,13 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
         ))}
         {canMoveNext && (
           <KahaniButton
-            size="sm"
+            size="md"
             onClick={handleNext}
             name={<FaArrowRight />}
             variant="navigate"
           />
         )}
-      </HStack>
-      {!options.some((x) => isOptionSelected(x.id)) && (
-        <HStack justifyContent="flex-end" width="100%">
+        {!options.some((x) => isOptionSelected(x.id)) && (
           <OptionCreator
             storyId={storyId}
             parentOptionId={parentOptionId}
@@ -86,8 +84,8 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
               setStartIndex(Math.max(0, options.length - visibleOptions));
             }}
           />
-        </HStack>
-      )}
+        )}
+      </HStack>
     </Stack>
   );
 };

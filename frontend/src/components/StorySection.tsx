@@ -1,23 +1,18 @@
 // src/components/StorySection.tsx
 import React from "react";
 import {
-  Box,
   Card,
   CardBody,
   CardHeader,
-  Divider,
-  HStack,
   Heading,
+  Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { StoryOption, StoryOptionPreview } from "../types/Story";
-import OptionCreator from "./toolkit/OptionCreator";
-import KahaniButton from "./toolkit/KahaniButton";
 import { TEAL, PURPLE, DARK_GREEN, WHITE } from "../colors";
-import BackToHomeButton from "./toolkit/BackToHomeButton";
 import OptionsLayout from "./toolkit/OptionsLayout";
-
+import { TypeAnimation } from "react-type-animation";
 interface StorySectionProps {
   storyId: number;
   title?: string;
@@ -62,9 +57,20 @@ const StorySection: React.FC<StorySectionProps> = ({
           )}
         </CardHeader>
         <CardBody>
-          <Text mb={4} color={DARK_GREEN}>
+          {/* <Text mb={4} color={DARK_GREEN}>
             {paragraph}
-          </Text>
+          </Text> */}
+          <TypeAnimation
+            sequence={[paragraph]}
+            wrapper="span"
+            cursor={true}
+            style={{
+              fontSize: "1.5em",
+              display: "inline-block",
+              color: DARK_GREEN,
+            }}
+          />
+          <Spacer marginTop="15px" />
           <OptionsLayout
             options={options}
             onClick={(optionId: number) => onOptionSelect(depth, optionId)}
