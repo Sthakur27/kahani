@@ -1,11 +1,16 @@
+// src/components/StoryView.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Box, Spinner, Flex, Stack, SlideFade } from "@chakra-ui/react";
+import { Box, Spinner, Flex, Stack } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
 import { MINT_GREEN, DARK_GREEN } from "../colors";
 import StorySection from "./StorySection";
+import StoryBook from "./StoryBook";
 import BackToHomeButton from "./toolkit/BackToHomeButton";
+import KahaniButton from "./toolkit/KahaniButton";
+import { PiCardsFill } from "react-icons/pi";
+import { IoBook } from "react-icons/io5";
 
 const StoryView: React.FC = () => {
   const { storyId } = useParams<{ storyId: string }>();
@@ -13,6 +18,8 @@ const StoryView: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [cardMode, setCardMode] = useState<boolean>(true);
+  const [typingLevel, setTypingLevel] = useState<number[]>([0]); // 0 for story start, 1 ended story, 2 for option end
 
   const getStoryOption = (
     path: StoryOption[],
@@ -24,10 +31,14 @@ const StoryView: React.FC = () => {
       .then((response) => {
         setStoryPath([...path, response.data]);
         setSelectedOptions([...options, optionId]);
+        setTypingLevel([...typingLevel, 0]);
       })
       .catch((error) => {
         console.error("Error fetching story option:", error);
       });
+  };
+  const isOptionSelected = (optionId: number) => {
+    return selectedOptions.includes(optionId);
   };
 
   const handleOptionSelect = (depth: number, optionId: number) => {
@@ -38,6 +49,7 @@ const StoryView: React.FC = () => {
       console.log("back");
       setStoryPath(storyPath.slice(0, depth));
       setSelectedOptions(selectedOptions.slice(0, depth));
+      setTypingLevel(typingLevel.slice(0, depth));
     } else {
       console.log("forward");
       getStoryOption(
@@ -46,12 +58,13 @@ const StoryView: React.FC = () => {
         optionId
       );
     }
-    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+    // console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
   };
 
   const onCreate = (option: StoryOption) => {
     setStoryPath([...storyPath, option]);
     setSelectedOptions([...selectedOptions, option.id]);
+    setTypingLevel([...typingLevel, 0]);
   };
 
   useEffect(() => {
@@ -71,6 +84,8 @@ const StoryView: React.FC = () => {
 
   if (!story) return <Box>Story not found</Box>;
 
+  // console.log({ path: [story.intro, ...storyPath.map((s) => s.text)] });
+
   return (
     <Flex
       bgColor={MINT_GREEN}
@@ -81,12 +96,30 @@ const StoryView: React.FC = () => {
       position="relative"
     >
       <Box position="fixed" top="35px" right="30px" zIndex="1000">
-        <BackToHomeButton />
+        <Stack>
+          <BackToHomeButton />
+          <KahaniButton
+            size="lg"
+            onClick={() => setCardMode(!cardMode)}
+            name={cardMode ? <IoBook /> : <PiCardsFill />}
+            variant={cardMode ? "click" : "create"}
+          />
+        </Stack>
       </Box>
       <Box p={5} maxW="800px" width="100%">
         <Stack spacing={5} align="center">
-          <SlideFade in={true} offsetY="20px">
-            <Box width="100%">
+          {cardMode ? (
+            <StoryBook
+              story={story}
+              storyPath={storyPath}
+              onOptionSelect={handleOptionSelect}
+              onCreate={onCreate}
+              isOptionSelected={isOptionSelected}
+              typingLevel={typingLevel}
+              setTypingLevel={setTypingLevel}
+            />
+          ) : (
+            <>
               <StorySection
                 storyId={story.id}
                 title={story.title}
@@ -95,28 +128,25 @@ const StoryView: React.FC = () => {
                 options={story.options}
                 depth={0}
                 onOptionSelect={handleOptionSelect}
-                selectedOptions={selectedOptions}
                 onCreate={onCreate}
+                isOptionSelected={isOptionSelected}
               />
-            </Box>
-          </SlideFade>
-          {storyPath.map((section, index) => (
-            <SlideFade key={section.id} in={true} offsetY="20px">
-              <Box width="100%">
+              {storyPath.map((section, index) => (
                 <StorySection
+                  key={section.id}
                   storyId={story.id}
                   paragraph={section.paragraph}
                   optionId={section.id}
                   options={section.childOptions}
                   depth={index + 1}
                   onOptionSelect={handleOptionSelect}
-                  selectedOptions={selectedOptions}
                   title={section.text}
                   onCreate={onCreate}
+                  isOptionSelected={isOptionSelected}
                 />
-              </Box>
-            </SlideFade>
-          ))}
+              ))}
+            </>
+          )}
         </Stack>
       </Box>
     </Flex>

@@ -10,7 +10,7 @@ const BackToHomeButton: React.FC = () => {
 
   return (
     <KahaniButton
-      size="sm"
+      size="lg"
       onClick={() => navigate("/")}
       name={<RiHome7Fill />}
       variant="navigate"

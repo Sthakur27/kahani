@@ -8,3 +8,4 @@ export const LIGHT_GRAY = "#f0f0f0";
 export const DARK_GRAY = "#404040";
 export const PLACEHOLDER_GRAY = "#888888";
 export const GREEN_SEA = "#1abc9c";
+export const TEXT_MSG_COLOR = "#53d769";

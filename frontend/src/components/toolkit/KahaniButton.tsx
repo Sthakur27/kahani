@@ -1,4 +1,4 @@
-// src/components/KahaniButton.tsx
+// src/components/toolkit/KahaniButton.tsx
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import {
@@ -6,16 +6,24 @@ import {
   WHITE,
   PURPLE,
   AMBER,
-  MINT_GREEN,
-  GREEN_SEA,
-  DARK_GREEN,
+  LIGHT_GRAY,
+  DARK_GRAY,
+  TEXT_MSG_COLOR,
 } from "../../colors";
 
 interface KahaniButtonProps {
   size: string;
   onClick: () => void;
   name: React.ReactNode;
-  variant: "click" | "create" | "navigate" | "selected";
+  variant:
+    | "click"
+    | "create"
+    | "navigate"
+    | "selected"
+    | "storyText"
+    | "optionText";
+  maxWidth?: string;
+  disabled?: boolean;
 }
 
 const KahaniButton: React.FC<KahaniButtonProps> = ({
@@ -23,20 +31,23 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
   onClick,
   name,
   variant,
+  maxWidth,
+  disabled,
 }) => {
   let bgColor;
   let hoverColor;
   let activeColor;
+  let textColor = WHITE;
 
   switch (variant) {
     case "click":
-      bgColor = DARK_GREEN;
+      bgColor = TEXT_MSG_COLOR;
       hoverColor = `${TEAL}`;
       activeColor = `${TEAL}`;
       break;
     case "create":
       bgColor = PURPLE;
-      hoverColor = `${PURPLE}`;
+      hoverColor = `${TEAL}`;
       activeColor = `${PURPLE}`;
       break;
     case "navigate":
@@ -49,6 +60,17 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
       hoverColor = `${AMBER}`;
       activeColor = `${PURPLE}`;
       break;
+    case "storyText":
+      bgColor = LIGHT_GRAY;
+      hoverColor = `${LIGHT_GRAY}`;
+      activeColor = `${LIGHT_GRAY}`;
+      textColor = DARK_GRAY;
+      break;
+    case "optionText":
+      bgColor = TEXT_MSG_COLOR;
+      hoverColor = `${TEXT_MSG_COLOR}`;
+      activeColor = `${TEXT_MSG_COLOR}`;
+      break;
     default:
       bgColor = TEAL;
       hoverColor = `${TEAL}`;
@@ -60,11 +82,13 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
       fontFamily="sans-serif"
       bg={bgColor}
       fontWeight="semibold"
-      color={WHITE}
-      borderRadius="3xl"
+      color={textColor}
+      borderRadius="full"
       transition="transform 0.15s ease-out, background 0.15s ease-out"
       onClick={onClick}
       size={size}
+      maxWidth={maxWidth}
+      disabled={disabled}
       _hover={{
         transform: "scale(1.05, 1.05)",
         bg: hoverColor,

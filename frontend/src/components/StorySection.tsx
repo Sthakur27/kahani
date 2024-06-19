@@ -20,9 +20,9 @@ interface StorySectionProps {
   optionId: number | null;
   options: StoryOptionPreview[];
   onOptionSelect: (depth: number, optionId: number) => void;
-  selectedOptions: number[];
   depth: number;
   onCreate: (option: StoryOption) => void;
+  isOptionSelected: (optionId: number) => boolean;
 }
 
 const StorySection: React.FC<StorySectionProps> = ({
@@ -32,13 +32,10 @@ const StorySection: React.FC<StorySectionProps> = ({
   optionId,
   options,
   onOptionSelect,
-  selectedOptions,
   depth,
   onCreate,
+  isOptionSelected,
 }) => {
-  const isOptionSelected = (optionId: number) => {
-    return selectedOptions.includes(optionId);
-  };
   return (
     <Stack spacing={5} align="center">
       <Card
@@ -63,7 +60,7 @@ const StorySection: React.FC<StorySectionProps> = ({
           <TypeAnimation
             sequence={[paragraph]}
             wrapper="span"
-            cursor={true}
+            cursor={false}
             style={{
               fontSize: "1.5em",
               display: "inline-block",
