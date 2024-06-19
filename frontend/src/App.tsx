@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import StoryView from "./components/StoryView";
 import CreateStory from "./components/CreateStory";
-import StoryOptionView from "./components/StoryOptionView";
+// import StoryOptionView from "./components/StoryOptionView";
 
 const App: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <Route path="/" Component={HomePage} />
         <Route path="/story/:storyId" Component={StoryView} />
         <Route path="/create-story" element={<CreateStory />} />
-        <Route path="/option/:optionId" element={<StoryOptionView />} />
+        {/* <Route path="/option/:optionId" element={<StoryOptionView />} /> */}
       </Routes>
     </Router>
   );

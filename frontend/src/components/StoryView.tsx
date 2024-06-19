@@ -1,60 +1,127 @@
 // src/components/StoryView.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link as RouterLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Box,
-  Button,
   Heading,
-  Link,
-  List,
-  ListItem,
+  Spinner,
+  Flex,
+  Stack,
   Text,
+  Divider,
 } from "@chakra-ui/react";
-import { Story } from "../types/Story";
-import CreateOption from "./CreateOption";
+import { Story, StoryOption } from "../types/Story";
+import { MINT_GREEN, DARK_GREEN, TEAL } from "../colors";
+import StorySection from "./StorySection";
+import BackToHomeButton from "./toolkit/BackToHomeButton";
 
 const StoryView: React.FC = () => {
   const { storyId } = useParams<{ storyId: string }>();
   const [story, setStory] = useState<Story | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+
+  const getStoryOption = (
+    path: StoryOption[],
+    options: number[],
+    optionId: number
+  ) => {
+    axios
+      .get<StoryOption>(`http://localhost:5000/options/${optionId}`)
+      .then((response) => {
+        setStoryPath([...path, response.data]);
+        setSelectedOptions([...options, optionId]);
+      })
+      .catch((error) => {
+        console.error("Error fetching story option:", error);
+      });
+  };
+
+  const handleOptionSelect = (depth: number, optionId: number) => {
+    console.log("Option selected: ", optionId);
+    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+
+    if (selectedOptions[selectedOptions.length - 1] === optionId) {
+      console.log("back");
+      setStoryPath(storyPath.slice(0, depth));
+      setSelectedOptions(selectedOptions.slice(0, depth));
+    } else {
+      console.log("forward");
+      getStoryOption(
+        storyPath.slice(0, depth),
+        selectedOptions.slice(0, depth),
+        optionId
+      );
+    }
+    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+  };
+
+  const onCreate = (option: StoryOption) => {
+    setStoryPath([...storyPath, option]);
+    setSelectedOptions([...selectedOptions, option.id]);
+  };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/stories/${storyId}`)
+      .get<Story>(`http://localhost:5000/stories/${storyId}`)
       .then((response) => {
         setStory(response.data);
+        setIsLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.error("Error fetching story:", error);
+        setIsLoading(false);
+      });
   }, [storyId]);
 
-  if (!story) return <Box>Loading...</Box>;
+  if (isLoading) return <Spinner size="xl" />;
+
+  if (!story) return <Box>Story not found</Box>;
 
   return (
-    <Box p={5}>
-      <Heading as="h1" mb={4}>
-        {story.title}
-      </Heading>
-      <Text mb={4}>{story.intro}</Text>
-
-      <Heading as="h4" size="md" mb={4}>
-        Options:
-      </Heading>
-      <List spacing={3} mb={4}>
-        {story.options.map((option) => (
-          <ListItem key={option.id}>
-            <Link as={RouterLink} to={`/option/${option.id}`} color="teal.500">
-              {option.text}
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-
-      <CreateOption storyId={story.id} />
-
-      <Button as={RouterLink} to="/" colorScheme="teal" mt={5}>
-        Back to Home
-      </Button>
-    </Box>
+    <Flex
+      bgColor={MINT_GREEN}
+      minH="100vh"
+      color={DARK_GREEN}
+      align="center"
+      justify="center"
+      position="relative"
+    >
+      <Box position="fixed" top="35px" right="30px" zIndex="1000">
+        <BackToHomeButton />
+      </Box>
+      <Box p={5} maxW="800px" width="100%">
+        <Stack spacing={5} align="center">
+          <StorySection
+            storyId={story.id}
+            title={story.title}
+            paragraph={story.intro}
+            optionId={null}
+            options={story.options}
+            depth={0}
+            onOptionSelect={handleOptionSelect}
+            selectedOptions={selectedOptions}
+            onCreate={onCreate}
+          />
+          {storyPath.map((section, index) => (
+            <StorySection
+              key={index}
+              storyId={story.id}
+              paragraph={section.paragraph}
+              optionId={section.id}
+              options={section.childOptions}
+              depth={index + 1}
+              onOptionSelect={handleOptionSelect}
+              selectedOptions={selectedOptions}
+              title={section.text}
+              onCreate={onCreate}
+            />
+          ))}
+        </Stack>
+      </Box>
+    </Flex>
   );
 };
 

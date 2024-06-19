@@ -7,7 +7,7 @@ import {
   DARK_GRAY,
   WHITE,
   PLACEHOLDER_GRAY,
-} from "../colors";
+} from "../../colors";
 
 interface KahaniTextAreaProps extends TextareaProps {
   variant?: "default";

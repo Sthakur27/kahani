@@ -1,13 +1,21 @@
 // src/components/KahaniButton.tsx
 import React from "react";
 import { Button } from "@chakra-ui/react";
-import { TEAL, WHITE, PURPLE, AMBER } from "../colors";
+import {
+  TEAL,
+  WHITE,
+  PURPLE,
+  AMBER,
+  MINT_GREEN,
+  GREEN_SEA,
+  DARK_GREEN,
+} from "../../colors";
 
 interface KahaniButtonProps {
   size: string;
   onClick: () => void;
   name: React.ReactNode;
-  variant: "click" | "create" | "navigate";
+  variant: "click" | "create" | "navigate" | "selected";
 }
 
 const KahaniButton: React.FC<KahaniButtonProps> = ({
@@ -22,7 +30,7 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
 
   switch (variant) {
     case "click":
-      bgColor = TEAL;
+      bgColor = DARK_GREEN;
       hoverColor = `${TEAL}`;
       activeColor = `${TEAL}`;
       break;
@@ -35,6 +43,11 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
       bgColor = AMBER;
       hoverColor = `${AMBER}`;
       activeColor = `${AMBER}`;
+      break;
+    case "selected":
+      bgColor = TEAL;
+      hoverColor = `${AMBER}`;
+      activeColor = `${PURPLE}`;
       break;
     default:
       bgColor = TEAL;

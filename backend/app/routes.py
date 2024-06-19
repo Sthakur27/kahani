@@ -25,7 +25,7 @@ def create_story():
 @main.route("/stories/<int:story_id>", methods=["GET"])
 def get_story(story_id):
     story = Story.query.get_or_404(story_id)
-    options = Option.query.filter_by(story_id=story_id).all()
+    options = Option.query.filter_by(story_id=story_id, parent_option_id=None).all()
     return jsonify(
         {
             "id": story.id,
@@ -74,21 +74,14 @@ def create_option():
     )
     db.session.add(new_option)
     db.session.commit()
-    return (
-        jsonify(
-            {
-                "id": new_option.id,
-                "text": new_option.text,
-                "paragraph": new_option.paragraph,
-                "storyTitle": Story.query.get(new_option.story_id).title,
-                "parentOptionText": (
-                    Option.query.get(new_option.parent_option_id).text
-                    if new_option.parent_option_id
-                    else None
-                ),
-            }
-        ),
-        201,
+    return jsonify(
+        {
+            "id": new_option.id,
+            "text": new_option.text,
+            "paragraph": new_option.paragraph,
+            "parentOptionId": new_option.parent_option_id,
+            "childOptions": [],
+        }
     )
 
 
@@ -109,28 +102,22 @@ def update_option(option_id):
 @main.route("/options/<int:option_id>", methods=["GET"])
 def get_option(option_id):
     option = Option.query.get_or_404(option_id)
-    parent_option = (
-        Option.query.get(option.parent_option_id) if option.parent_option_id else None
+    child_options = (
+        Option.query.filter_by(parent_option_id=option_id)
+        .with_entities(Option.id, Option.text)
+        .all()
     )
-    story = Story.query.get_or_404(option.story_id)
-    child_options = Option.query.filter_by(parent_option_id=option_id).all()
 
     return jsonify(
         {
             "id": option.id,
             "text": option.text,
             "paragraph": option.paragraph,
-            "storyId": option.story_id,
-            "storyTitle": story.title,
             "parentOptionId": option.parent_option_id,
-            "parentOptionText": parent_option.text if parent_option else None,
             "childOptions": [
                 {
                     "id": child.id,
                     "text": child.text,
-                    "paragraph": child.paragraph,
-                    "storyId": child.story_id,
-                    "storyTitle": story.title,
                 }
                 for child in child_options
             ],

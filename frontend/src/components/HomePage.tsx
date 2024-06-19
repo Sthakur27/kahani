@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { DARK_GREEN, MINT_GREEN } from "../colors";
 import { StoryPreview } from "../types/Story";
-import KahaniButton from "./KahaniButton";
+import KahaniButton from "./toolkit/KahaniButton";
 
 const HomePage: React.FC = () => {
   const [stories, setStories] = useState<StoryPreview[]>([]);
@@ -62,12 +62,6 @@ const HomePage: React.FC = () => {
             onClick={() => navigate(`/create-story`)}
             name="Create New Story!"
             variant="create"
-          />
-          <KahaniButton
-            size="lg"
-            onClick={() => navigate(`/`)}
-            name="Back to Home"
-            variant="navigate"
           />
         </Stack>
       </Box>

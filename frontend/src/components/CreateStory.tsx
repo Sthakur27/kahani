@@ -11,8 +11,8 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
-import KahaniButton from "./KahaniButton";
-import KahaniTextArea from "./KahaniTextArea";
+import KahaniButton from "./toolkit/KahaniButton";
+import KahaniTextArea from "./toolkit/KahaniTextArea";
 import {
   WHITE,
   TEAL,
@@ -21,6 +21,7 @@ import {
   MINT_GREEN,
   DARK_GREEN,
 } from "../colors";
+import BackToHomeButton from "./toolkit/BackToHomeButton";
 
 const CreateStory: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -87,6 +88,7 @@ const CreateStory: React.FC = () => {
               name={isLoading ? <Spinner size="md" /> : "Create Story"}
               variant="create"
             />
+            <BackToHomeButton />
           </Stack>
         </form>
       </Box>

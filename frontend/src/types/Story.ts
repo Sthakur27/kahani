@@ -2,23 +2,18 @@ export interface StoryPreview {
   id: number;
   title: string;
 }
-
-export interface StoryOption {
+export interface StoryOptionPreview {
   id: number;
   text: string;
+  // upvotes etc
+}
+
+export interface StoryOption extends StoryOptionPreview {
   paragraph: string;
-  storyId: number;
-  storyTitle: string;
+  childOptions: StoryOptionPreview[];
 }
 
 export interface Story extends StoryPreview {
   intro: string; // Assuming stories have an 'intro' field
-  options: StoryOption[];
-}
-
-export interface StoryOptionDetail extends StoryOption {
-  storyTitle: string;
-  parentOptionId?: number;
-  parentOptionText?: string;
-  childOptions: StoryOption[];
+  options: StoryOptionPreview[];
 }
