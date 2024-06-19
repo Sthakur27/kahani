@@ -2,10 +2,11 @@
 import React from "react";
 import { TypeAnimation } from "react-type-animation";
 import KahaniButton from "./KahaniButton";
+import { TYPE_SPEED, TYPE_WAIT } from "../constants";
 
 interface KahaniTypingButtonProps {
   size: string;
-  onClick: () => void;
+  onClick?: () => void;
   name: string;
   variant:
     | "click"
@@ -29,9 +30,17 @@ const KahaniTypingButton: React.FC<KahaniTypingButtonProps> = ({
   typingCallback,
 }) => {
   const buttonContent = typingCallback ? (
-    <TypeAnimation sequence={[name, typingCallback]} cursor={false} />
+    <TypeAnimation
+      sequence={[name, TYPE_WAIT, typingCallback]}
+      cursor={false}
+      speed={TYPE_SPEED}
+    />
   ) : (
-    <TypeAnimation sequence={[name]} cursor={false} />
+    <TypeAnimation
+      sequence={[name, TYPE_WAIT]}
+      cursor={false}
+      speed={TYPE_SPEED}
+    />
   );
 
   return (

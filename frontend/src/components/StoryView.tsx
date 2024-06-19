@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import { Box, Spinner, Flex, Stack } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
 import { MINT_GREEN, DARK_GREEN } from "../colors";
-import StorySection from "./StorySection";
+import StoryCard from "./StoryCard";
 import StoryBook from "./StoryBook";
 import BackToHomeButton from "./toolkit/BackToHomeButton";
 import KahaniButton from "./toolkit/KahaniButton";
 import { PiCardsFill } from "react-icons/pi";
 import { IoBook } from "react-icons/io5";
+import StoryDeck from "./StoryDeck";
 
 const StoryView: React.FC = () => {
   const { storyId } = useParams<{ storyId: string }>();
@@ -18,7 +19,7 @@ const StoryView: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-  const [cardMode, setCardMode] = useState<boolean>(true);
+  const [cardMode, setCardMode] = useState<boolean>(false);
   const [typingLevel, setTypingLevel] = useState<number[]>([0]); // 0 for story start, 1 ended story, 2 for option end
 
   const getStoryOption = (
@@ -119,33 +120,16 @@ const StoryView: React.FC = () => {
               setTypingLevel={setTypingLevel}
             />
           ) : (
-            <>
-              <StorySection
-                storyId={story.id}
-                title={story.title}
-                paragraph={story.intro}
-                optionId={null}
-                options={story.options}
-                depth={0}
-                onOptionSelect={handleOptionSelect}
-                onCreate={onCreate}
-                isOptionSelected={isOptionSelected}
-              />
-              {storyPath.map((section, index) => (
-                <StorySection
-                  key={section.id}
-                  storyId={story.id}
-                  paragraph={section.paragraph}
-                  optionId={section.id}
-                  options={section.childOptions}
-                  depth={index + 1}
-                  onOptionSelect={handleOptionSelect}
-                  title={section.text}
-                  onCreate={onCreate}
-                  isOptionSelected={isOptionSelected}
-                />
-              ))}
-            </>
+            <StoryDeck
+              story={story}
+              options={story.options}
+              storyPath={storyPath}
+              handleOptionSelect={handleOptionSelect}
+              onCreate={onCreate}
+              isOptionSelected={isOptionSelected}
+              typingLevel={typingLevel}
+              setTypingLevel={setTypingLevel}
+            />
           )}
         </Stack>
       </Box>

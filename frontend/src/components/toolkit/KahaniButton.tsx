@@ -13,7 +13,7 @@ import {
 
 interface KahaniButtonProps {
   size: string;
-  onClick: () => void;
+  onClick?: () => void;
   name: React.ReactNode;
   variant:
     | "click"

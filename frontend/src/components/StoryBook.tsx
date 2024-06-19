@@ -1,9 +1,8 @@
 // src/components/StoryBook.tsx
-import React, { useState } from "react";
+import React from "react";
 import {
   Heading,
   Stack,
-  Text,
   Card,
   CardHeader,
   CardBody,
@@ -40,10 +39,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
   const lastOptionId = storyPath.length
     ? storyPath[storyPath.length - 1].id
     : null;
-  const selectedFirstOption = story.options.find((x) => isOptionSelected(x.id));
   console.log(typingLevel);
   const lastTypingLevel = typingLevel[typingLevel.length - 1];
-  const secondLastTypingLevel = typingLevel[typingLevel.length - 2];
   return (
     <Stack spacing={5} align="center">
       <Card
@@ -60,67 +57,29 @@ const StoryBook: React.FC<StoryBookProps> = ({
           </Heading>
         </CardHeader>
         <CardBody>
-          <StoryBookChapter
+          <StoryBookChapter // intro
             text={story.intro}
             isUserResponse={false}
             typingCallBack={() => {
               setTypingLevel([2]);
             }}
+            shouldType={storyPath.length === 0}
           />
-          {/* {selectedFirstOption && (
-            <StoryBookChapter
-              text={selectedFirstOption.text}
-              isUserResponse={true}
-              typingCallBack={() => {
-                setTypingLevel([2, typingLevel[0]]);
-              }}
-            />
-          )} */}
-
-          {/* {storyPath.map((storyOption, index) => {
-            const selectedOption = storyOption.childOptions.find((x) =>
-              isOptionSelected(x.id)
-            );
-            return (
-              <Stack key={`stack${storyOption.id}`}>
-                {secondLastTypingLevel === 2 && (
-                  <StoryBookChapter
-                    text={storyOption.paragraph}
-                    isUserResponse={false}
-                    typingCallBack={() => {
-                      console.log("h1");
-                      setTypingLevel([...typingLevel.slice(0, index + 1), 1]);
-                      console.log(typingLevel);
-                    }}
-                  />
-                )}
-                {selectedOption && lastTypingLevel === 1 && (
-                  <StoryBookChapter
-                    text={selectedOption.text}
-                    isUserResponse={true}
-                    typingCallBack={() => {
-                      setTypingLevel([...typingLevel.slice(0, index + 1), 2]);
-                    }}
-                  />
-                )}
-              </Stack>
-            );
-          })} */}
           {storyPath.map((storyOption, index) => {
-            const selectedOption = storyOption.childOptions.find((x) =>
-              isOptionSelected(x.id)
-            );
             return (
               <Stack key={`stack${storyOption.id}`}>
-                <StoryBookChapter
+                <StoryBookChapter // header
                   text={storyOption.text}
                   isUserResponse={true}
                   typingCallBack={() => {
                     setTypingLevel([...typingLevel.slice(0, index + 1), 1]);
                   }}
+                  shouldType={
+                    storyPath.length === index + 1 && lastTypingLevel === 0
+                  }
                 />
                 {typingLevel[index + 1] >= 1 && (
-                  <StoryBookChapter
+                  <StoryBookChapter // body
                     text={storyOption.paragraph}
                     isUserResponse={false}
                     typingCallBack={() => {
@@ -128,25 +87,15 @@ const StoryBook: React.FC<StoryBookProps> = ({
                       setTypingLevel([...typingLevel.slice(0, index + 1), 2]);
                       console.log(typingLevel);
                     }}
+                    shouldType={
+                      storyPath.length === index + 1 && lastTypingLevel === 1
+                    }
                   />
                 )}
               </Stack>
             );
           })}
         </CardBody>
-        {/* <CardFooter>
-          {((selectedFirstOption && lastTypingLevel == 2) ||
-            (!selectedFirstOption && lastTypingLevel == 1)) && (
-            <OptionsLayout
-              options={latestOptions}
-              onClick={(optionId: number) => onOptionSelect(depth, optionId)}
-              isOptionSelected={isOptionSelected}
-              storyId={story.id}
-              parentOptionId={lastOptionId}
-              onCreate={onCreate}
-            />
-          )}
-        </CardFooter> */}
         <CardFooter>
           {lastTypingLevel === 2 && (
             <OptionsLayout
