@@ -25,7 +25,11 @@ def create_story():
 @main.route("/stories/<int:story_id>", methods=["GET"])
 def get_story(story_id):
     story = Story.query.get_or_404(story_id)
-    options = Option.query.filter_by(story_id=story_id, parent_option_id=None).all()
+    options = (
+        Option.query.filter_by(story_id=story_id, parent_option_id=None)
+        .with_entities(Option.id, Option.text)
+        .all()
+    )
     return jsonify(
         {
             "id": story.id,
