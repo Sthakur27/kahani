@@ -23,6 +23,8 @@ const StoryView: React.FC = () => {
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
 
+  // console.log({ storyPath });
+
   const getStoryOption = (
     path: StoryOption[],
     options: number[],
@@ -40,26 +42,34 @@ const StoryView: React.FC = () => {
   };
 
   const handleOptionSelect = (depth: number, optionId: number) => {
-    console.log("Option selected: ", optionId);
-    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
-
     if (selectedOptions[selectedOptions.length - 1] === optionId) {
-      console.log("back");
       setStoryPath(storyPath.slice(0, depth));
       setSelectedOptions(selectedOptions.slice(0, depth));
     } else {
-      console.log("forward");
       getStoryOption(
         storyPath.slice(0, depth),
         selectedOptions.slice(0, depth),
         optionId
       );
     }
-    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+    // console.log("selected option: ", optionId);
   };
 
   const onCreate = (option: StoryOption) => {
-    setStoryPath([...storyPath, option]);
+    const oldPath = [...storyPath];
+    if (oldPath.length === 0) {
+      story?.options.push(option);
+      setSelectedOptions([option.id]);
+      setStoryPath([option]);
+      return;
+    }
+    const parentOption = oldPath[oldPath.length - 1];
+    parentOption.childOptions.push({
+      id: option.id,
+      text: option.text,
+    });
+    const newPath = [...oldPath, option];
+    setStoryPath(newPath);
     setSelectedOptions([...selectedOptions, option.id]);
   };
 

@@ -1,17 +1,9 @@
-// src/components/toolkit/OptionsLayout.tsx
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  IconButton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, HStack, Stack } from "@chakra-ui/react";
 import KahaniButton from "./KahaniButton";
-import { TEAL, WHITE } from "../../colors";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import OptionCreator from "./OptionCreator";
+import { StoryOption } from "../../types/Story";
 
 interface Option {
   id: number;
@@ -22,35 +14,43 @@ interface OptionsLayoutProps {
   options: Option[];
   onClick: (id: number) => void;
   isOptionSelected: (optionId: number) => boolean;
+  storyId: number;
+  parentOptionId: number | null;
+  onCreate: (option: StoryOption) => void;
 }
 
 const OptionsLayout: React.FC<OptionsLayoutProps> = ({
   options,
   onClick,
   isOptionSelected,
+  storyId,
+  parentOptionId,
+  onCreate,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
   const visibleOptions = 3;
 
   const handleNext = () => {
-    if (startIndex + visibleOptions < options.length) {
-      setStartIndex(startIndex + visibleOptions);
-    }
+    setStartIndex((prevIndex) =>
+      Math.min(prevIndex + visibleOptions, options.length - visibleOptions)
+    );
   };
 
   const handlePrev = () => {
-    if (startIndex - visibleOptions >= 0) {
-      setStartIndex(startIndex - visibleOptions);
-    }
+    setStartIndex((prevIndex) => Math.max(prevIndex - visibleOptions, 0));
   };
-  if (options.length === 0) {
-    return <></>;
-  }
+
+  const displayedOptions = options.slice(
+    startIndex,
+    startIndex + visibleOptions
+  );
+  const canMoveNext = startIndex + visibleOptions < options.length;
+  const canMovePrev = startIndex > 0;
 
   return (
     <Stack spacing={4} align="center">
       <HStack spacing={2}>
-        {startIndex > 0 && (
+        {canMovePrev && (
           <KahaniButton
             size="sm"
             onClick={handlePrev}
@@ -58,18 +58,16 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
             variant="navigate"
           />
         )}
-        {options
-          .slice(startIndex, startIndex + visibleOptions)
-          .map((option) => (
-            <KahaniButton
-              key={option.id}
-              size="md"
-              onClick={() => onClick(option.id)}
-              name={option.text}
-              variant={isOptionSelected(option.id) ? "selected" : "click"}
-            />
-          ))}
-        {startIndex + visibleOptions < options.length && (
+        {displayedOptions.map((option) => (
+          <KahaniButton
+            key={option.id}
+            size="md"
+            onClick={() => onClick(option.id)}
+            name={option.text}
+            variant={isOptionSelected(option.id) ? "selected" : "click"}
+          />
+        ))}
+        {canMoveNext && (
           <KahaniButton
             size="sm"
             onClick={handleNext}
@@ -78,6 +76,18 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
           />
         )}
       </HStack>
+      {!options.some((x) => isOptionSelected(x.id)) && (
+        <HStack justifyContent="flex-end" width="100%">
+          <OptionCreator
+            storyId={storyId}
+            parentOptionId={parentOptionId}
+            onCreate={(option: StoryOption) => {
+              onCreate(option);
+              setStartIndex(Math.max(0, options.length - visibleOptions));
+            }}
+          />
+        </HStack>
+      )}
     </Stack>
   );
 };

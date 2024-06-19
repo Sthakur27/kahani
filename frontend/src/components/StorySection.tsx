@@ -44,13 +44,6 @@ const StorySection: React.FC<StorySectionProps> = ({
   const isOptionSelected = (optionId: number) => {
     return selectedOptions.includes(optionId);
   };
-  // console.log({
-  //   selectedOptions,
-  //   optionId,
-  //   isOptionSelected: isOptionSelected,
-  //   depth,
-  // });
-
   return (
     <Stack spacing={5} align="center">
       <Card
@@ -72,33 +65,14 @@ const StorySection: React.FC<StorySectionProps> = ({
           <Text mb={4} color={DARK_GREEN}>
             {paragraph}
           </Text>
-          {options.length > 0 && (
-            // <HStack spacing={3} mb={4} align="center">
-            //   {options.map((option) => (
-            //     <KahaniButton
-            //       key={option.id}
-            //       size="md"
-            //       onClick={() => onOptionSelect(depth, option.id)}
-            //       name={option.text}
-            //       variant={isOptionSelected(option.id) ? "selected" : "click"}
-            //     />
-            //   ))}
-            // </HStack>
-            <OptionsLayout
-              options={options}
-              onClick={(optionId: number) => onOptionSelect(depth, optionId)}
-              isOptionSelected={isOptionSelected}
-            />
-          )}
-          {!options.some((x) => isOptionSelected(x.id)) && (
-            <HStack justifyContent="flex-end" width="100%">
-              <OptionCreator
-                storyId={storyId}
-                parentOptionId={optionId}
-                onCreate={onCreate}
-              />
-            </HStack>
-          )}
+          <OptionsLayout
+            options={options}
+            onClick={(optionId: number) => onOptionSelect(depth, optionId)}
+            isOptionSelected={isOptionSelected}
+            storyId={storyId}
+            parentOptionId={optionId}
+            onCreate={onCreate}
+          />
         </CardBody>
       </Card>
     </Stack>

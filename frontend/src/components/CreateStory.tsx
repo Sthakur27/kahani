@@ -37,7 +37,6 @@ const CreateStory: React.FC = () => {
         title,
         intro,
       });
-      console.log("Story created", response.data);
       navigate(`/story/${response.data.id}`); // Navigate to the new story view
     } catch (error) {
       console.error("Failed to create story", error);
