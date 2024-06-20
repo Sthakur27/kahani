@@ -1,4 +1,3 @@
-// src/components/toolkit/KahaniButton.tsx
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import {
@@ -88,6 +87,10 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
       onClick={onClick}
       size={size}
       maxWidth={maxWidth}
+      height="auto"
+      whiteSpace="normal"
+      textAlign="left"
+      padding="10px 20px"
       disabled={disabled}
       _hover={{
         transform: "scale(1.05, 1.05)",

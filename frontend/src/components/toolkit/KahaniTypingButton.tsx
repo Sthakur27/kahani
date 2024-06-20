@@ -1,8 +1,6 @@
-// src/components/toolkit/KahaniTypingButton.tsx
 import React from "react";
 import { TypeAnimation } from "react-type-animation";
 import KahaniButton from "./KahaniButton";
-import { TYPE_SPEED, TYPE_WAIT } from "../constants";
 import { Box } from "@chakra-ui/react";
 
 interface KahaniTypingButtonProps {
@@ -55,7 +53,7 @@ const KahaniTypingButton: React.FC<KahaniTypingButtonProps> = ({
       size={size}
       onClick={onClick}
       name={
-        <Box maxWidth={maxWidth} overflowY="auto">
+        <Box maxWidth={maxWidth} overflowY="auto" whiteSpace="normal">
           {buttonContent}
         </Box>
       }
