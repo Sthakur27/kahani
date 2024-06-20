@@ -3,13 +3,12 @@ import axios from "axios";
 import autosize from "autosize";
 import {
   FormControl,
-  FormLabel,
-  Input,
+  Textarea,
   Spinner,
   Stack,
   HStack,
-  Textarea,
   Divider,
+  Flex,
 } from "@chakra-ui/react";
 import KahaniButton from "./KahaniButton";
 import {
@@ -41,10 +40,14 @@ const OptionCreator2: React.FC<OptionCreator2Props> = ({
   const [paragraph, setParagraph] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const textareaRef2 = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     if (textareaRef.current) {
       autosize(textareaRef.current);
+    }
+    if (textareaRef2.current) {
+      autosize(textareaRef2.current);
     }
   }, []);
 
@@ -73,48 +76,52 @@ const OptionCreator2: React.FC<OptionCreator2Props> = ({
   return (
     <>
       {showInputs && (
-        <Stack spacing={4} align="center" width="100%">
+        <Stack spacing={4} width="100%">
           <Divider colorScheme="cyan" />
-          <FormControl id="text" mb={4} width="100%">
-            <Textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Enter option text"
-              bg={TEXT_MSG_COLOR}
-              borderColor={LIGHT_GRAY}
-              color={WHITE}
-              _placeholder={{ color: WHITE }}
-              width="100%"
-              fontSize="1em"
-              fontWeight="bold"
-              fontFamily="sans-serif"
-              height="auto"
-              overflow="hidden"
-              ref={textareaRef}
-              borderRadius="15px"
-            />
-          </FormControl>
+          <Flex justifyContent="flex-end" width="100%">
+            <FormControl id="text" mb={4} width="500px">
+              <Textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Enter option text"
+                bg={TEXT_MSG_COLOR}
+                borderColor={LIGHT_GRAY}
+                color={WHITE}
+                _placeholder={{ color: WHITE }}
+                width="100%"
+                height="auto"
+                fontSize="1em"
+                fontWeight="bold"
+                fontFamily="sans-serif"
+                overflow="hidden"
+                ref={textareaRef2}
+                borderRadius="15px"
+              />
+            </FormControl>
+          </Flex>
           <Divider color={DARK_GRAY} />
-          <FormControl id="paragraph" mb={4} width="100%">
-            <Textarea
-              value={paragraph}
-              onChange={(e) => setParagraph(e.target.value)}
-              placeholder="Enter option paragraph"
-              bg={LIGHT_GRAY}
-              borderColor={LIGHT_GRAY}
-              color={DARK_GRAY}
-              _placeholder={{ color: DARK_GRAY }}
-              width="100%"
-              fontSize="1em"
-              fontWeight="bold"
-              fontFamily="sans-serif"
-              height="auto"
-              overflow="hidden"
-              ref={textareaRef}
-              borderRadius="15px"
-            />
-          </FormControl>
-          <HStack spacing={5} align="justify">
+          <Flex justifyContent="flex-start" width="100%">
+            <FormControl id="paragraph" mb={4} width="500px">
+              <Textarea
+                value={paragraph}
+                onChange={(e) => setParagraph(e.target.value)}
+                placeholder="Enter option paragraph"
+                bg={LIGHT_GRAY}
+                borderColor={LIGHT_GRAY}
+                color={DARK_GRAY}
+                _placeholder={{ color: DARK_GRAY }}
+                width="100%"
+                fontSize="1em"
+                fontWeight="bold"
+                fontFamily="sans-serif"
+                height="auto"
+                overflow="hidden"
+                ref={textareaRef}
+                borderRadius="15px"
+              />
+            </FormControl>
+          </Flex>
+          <HStack spacing={5} justify="center" width="100%">
             <KahaniButton
               size="md"
               onClick={handleSubmit}
