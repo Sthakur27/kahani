@@ -22,6 +22,7 @@ interface KahaniButtonProps {
     | "storyText"
     | "optionText";
   maxWidth?: string;
+  width?: string;
   disabled?: boolean;
 }
 
@@ -32,6 +33,7 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
   variant,
   maxWidth,
   disabled,
+  width,
 }) => {
   let bgColor;
   let hoverColor;
@@ -82,7 +84,7 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
       bg={bgColor}
       fontWeight="semibold"
       color={textColor}
-      borderRadius="full"
+      borderRadius="15px"
       transition="transform 0.15s ease-out, background 0.15s ease-out"
       onClick={onClick}
       size={size}
@@ -100,6 +102,7 @@ const KahaniButton: React.FC<KahaniButtonProps> = ({
         bg: activeColor,
         transform: "scale(1, 1)",
       }}
+      width={width}
     >
       {name}
     </Button>

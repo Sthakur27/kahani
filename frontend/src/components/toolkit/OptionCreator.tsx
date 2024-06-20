@@ -27,6 +27,7 @@ import {
   DARK_GRAY,
   PLACEHOLDER_GRAY,
   DARK_GREEN,
+  GREEN_SEA,
 } from "../../colors";
 import KahaniTextArea from "./KahaniTextArea";
 import { StoryOption } from "../../types/Story";
@@ -79,13 +80,13 @@ const OptionCreator: React.FC<OptionCreatorProps> = ({
       />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={DARK_GREEN}>
           <ModalHeader>Create a New Option</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit}>
               <FormControl id="text" mb={4} isRequired>
-                <FormLabel color={DARK_GREEN}>Option Text</FormLabel>
+                <FormLabel color={WHITE}>Option Text</FormLabel>
                 <Input
                   type="text"
                   value={text}
@@ -98,7 +99,7 @@ const OptionCreator: React.FC<OptionCreatorProps> = ({
                 />
               </FormControl>
               <FormControl id="paragraph" mb={4} isRequired>
-                <FormLabel color={DARK_GREEN}>Option Paragraph</FormLabel>
+                <FormLabel color={WHITE}>Option Paragraph</FormLabel>
                 <KahaniTextArea
                   value={paragraph}
                   onChange={(e) => setParagraph(e.target.value)}
@@ -120,7 +121,7 @@ const OptionCreator: React.FC<OptionCreatorProps> = ({
                 size="md"
                 onClick={onClose}
                 name="Close"
-                variant="click"
+                variant="navigate"
               />
             </HStack>
           </ModalFooter>

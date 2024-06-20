@@ -3,7 +3,9 @@ import { Box, HStack, Stack } from "@chakra-ui/react";
 import KahaniButton from "./KahaniButton";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import OptionCreator from "./OptionCreator";
+import OptionCreator2 from "./OptionCreator2";
 import { StoryOption } from "../../types/Story";
+import { TiMinus, TiPlus } from "react-icons/ti";
 
 interface Option {
   id: number;
@@ -28,6 +30,7 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
   onCreate,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
+  const [showInputs, setShowInputs] = useState<boolean>(false);
   const visibleOptions = 3;
 
   const handleNext = () => {
@@ -75,7 +78,7 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
             variant="navigate"
           />
         )}
-        {!options.some((x) => isOptionSelected(x.id)) && (
+        {/* {!options.some((x) => isOptionSelected(x.id)) && (
           <OptionCreator
             storyId={storyId}
             parentOptionId={parentOptionId}
@@ -84,8 +87,26 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
               setStartIndex(Math.max(0, options.length - visibleOptions));
             }}
           />
-        )}
+        )} */}
+        <KahaniButton
+          size="md"
+          onClick={() => setShowInputs(!showInputs)}
+          name={showInputs ? <TiMinus /> : <TiPlus />}
+          variant="create"
+        />
       </HStack>
+      {showInputs && !options.some((x) => isOptionSelected(x.id)) && (
+        <OptionCreator2
+          storyId={storyId}
+          parentOptionId={parentOptionId}
+          onCreate={(option: StoryOption) => {
+            onCreate(option);
+            setStartIndex(Math.max(0, options.length - visibleOptions));
+          }}
+          showInputs={showInputs}
+          setShowInputs={setShowInputs}
+        />
+      )}
     </Stack>
   );
 };
