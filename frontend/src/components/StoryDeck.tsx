@@ -8,12 +8,13 @@ interface StoryDeckProps {
   options: StoryOptionPreview[];
   storyPath: StoryOption[];
   handleOptionSelect: (depth: number, optionId: number) => void;
-  onCreate: (option: StoryOption) => void;
   isOptionSelected: (optionId: number) => boolean;
   typingLevel: number[];
   setTypingLevel: (typingLevel: number[]) => void;
   typeSpeed: number;
   typeWait: number;
+  showOptionCreator: boolean;
+  setShowOptionCreator: (showOptionCreator: boolean) => void;
 }
 
 const StoryDeck: React.FC<StoryDeckProps> = ({
@@ -21,48 +22,49 @@ const StoryDeck: React.FC<StoryDeckProps> = ({
   options,
   storyPath,
   handleOptionSelect,
-  onCreate,
   isOptionSelected,
   typingLevel,
   setTypingLevel,
   typeSpeed,
   typeWait,
+  showOptionCreator,
+  setShowOptionCreator,
 }) => {
   return (
     <>
       <StoryCard // title + intro + controls
-        storyId={story.id}
         title={story.title}
         paragraph={story.intro}
-        optionId={null}
         options={options}
         depth={0}
         onOptionSelect={handleOptionSelect}
-        onCreate={onCreate}
         isOptionSelected={isOptionSelected}
         typingLevel={typingLevel}
         setTypingLevel={setTypingLevel}
         storyPath={storyPath}
         typeSpeed={typeSpeed}
         typeWait={typeWait}
+        showOptionCreator={showOptionCreator}
+        setShowOptionCreator={setShowOptionCreator}
+        isStoryStarted={true}
       />
       {storyPath.map((section, index) => (
         <StoryCard // sections of option name and content + controls
           key={section.id}
-          storyId={story.id}
           paragraph={section.paragraph}
-          optionId={section.id}
           options={section.childOptions}
           depth={index + 1}
           onOptionSelect={handleOptionSelect}
           title={section.text}
-          onCreate={onCreate}
           isOptionSelected={isOptionSelected}
           typingLevel={typingLevel}
           setTypingLevel={setTypingLevel}
           storyPath={storyPath}
           typeSpeed={typeSpeed}
           typeWait={typeWait}
+          showOptionCreator={showOptionCreator}
+          setShowOptionCreator={setShowOptionCreator}
+          isStoryStarted={false}
         />
       ))}
     </>

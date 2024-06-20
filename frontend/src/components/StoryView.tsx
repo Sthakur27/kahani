@@ -20,6 +20,8 @@ import {
   TYPE_SPEED,
   TYPE_WAIT,
 } from "./constants";
+import CreateStoryBookOption from "./CreateStoryBookOption";
+import CreateStoryDeckOption from "./CreateStoryDeckOption";
 
 const StoryView: React.FC = () => {
   const [bookMode, setBookMode] = useState<boolean>(true);
@@ -34,6 +36,12 @@ const StoryView: React.FC = () => {
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
   const [typingLevel, setTypingLevel] = useState<number[]>([0]); // 0 for story start, 1 ended story, 2 for option end
+  const [showOptionCreator, setShowOptionCreator] = useState<boolean>(false);
+  const [text, setText] = useState<string>("");
+  const [paragraph, setParagraph] = useState<string>("");
+  const [createMode, setCreateMode] = useState<"title" | "body" | "submit">(
+    "title"
+  );
 
   console.log(typingLevel);
   console.log(selectedOptions);
@@ -87,6 +95,10 @@ const StoryView: React.FC = () => {
     setStoryPath([...tempStoryPath, option]);
     setSelectedOptions([...selectedOptions, option.id]);
     setTypingLevel([...typingLevel, 0]);
+    setCreateMode("title");
+    setShowOptionCreator(false);
+    setText("");
+    setParagraph("");
   };
 
   useEffect(() => {
@@ -137,30 +149,65 @@ const StoryView: React.FC = () => {
       <Box p={5} maxW="800px" width="100%">
         <Stack spacing={5} align="center">
           {bookMode ? (
-            <StoryBook
-              story={story}
-              storyPath={storyPath}
-              onOptionSelect={handleOptionSelect}
-              onCreate={onCreate}
-              isOptionSelected={isOptionSelected}
-              typingLevel={typingLevel}
-              setTypingLevel={setTypingLevel}
-              typeSpeed={typeSpeed}
-              typeWait={typeWait}
-            />
+            <Stack>
+              <StoryBook
+                story={story}
+                storyPath={storyPath}
+                onOptionSelect={handleOptionSelect}
+                onCreate={onCreate}
+                isOptionSelected={isOptionSelected}
+                typingLevel={typingLevel}
+                setTypingLevel={setTypingLevel}
+                typeSpeed={typeSpeed}
+                typeWait={typeWait}
+                showOptionCreator={showOptionCreator}
+                setShowOptionCreator={setShowOptionCreator}
+              />
+              <CreateStoryBookOption
+                storyId={story.id}
+                parentOptionId={
+                  storyPath.length ? storyPath[storyPath.length - 1].id : null
+                }
+                onCreate={onCreate}
+                showOptionCreator={showOptionCreator}
+                setShowOptionCreator={setShowOptionCreator}
+                text={text}
+                setText={setText}
+                paragraph={paragraph}
+                setParagraph={setParagraph}
+                createMode={createMode}
+                setCreateMode={setCreateMode}
+              />
+            </Stack>
           ) : (
-            <StoryDeck
-              story={story}
-              options={story.options}
-              storyPath={storyPath}
-              handleOptionSelect={handleOptionSelect}
-              onCreate={onCreate}
-              isOptionSelected={isOptionSelected}
-              typingLevel={typingLevel}
-              setTypingLevel={setTypingLevel}
-              typeSpeed={typeSpeed}
-              typeWait={typeWait}
-            />
+            <Stack>
+              <StoryDeck
+                story={story}
+                options={story.options}
+                storyPath={storyPath}
+                handleOptionSelect={handleOptionSelect}
+                isOptionSelected={isOptionSelected}
+                typingLevel={typingLevel}
+                setTypingLevel={setTypingLevel}
+                typeSpeed={typeSpeed}
+                typeWait={typeWait}
+                showOptionCreator={showOptionCreator}
+                setShowOptionCreator={setShowOptionCreator}
+              />
+              <CreateStoryDeckOption
+                storyId={story.id}
+                parentOptionId={story.id}
+                onCreate={onCreate}
+                showOptionCreator={showOptionCreator}
+                setShowOptionCreator={setShowOptionCreator}
+                text={text}
+                setText={setText}
+                paragraph={paragraph}
+                setParagraph={setParagraph}
+                createMode={createMode}
+                setCreateMode={setCreateMode}
+              />
+            </Stack>
           )}
         </Stack>
       </Box>

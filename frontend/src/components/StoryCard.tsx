@@ -4,59 +4,53 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Heading,
   Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { StoryOption, StoryOptionPreview } from "../types/Story";
-import { TEAL, DARK_GREEN, WHITE } from "../colors";
+import { DARK_GRAY, DARK_GREEN, WHITE } from "../colors";
 import OptionsLayout from "./toolkit/OptionsLayout";
 import { TypeAnimation } from "react-type-animation";
-import { TYPE_SPEED, TYPE_WAIT } from "./constants";
 
 interface StoryCardProps {
-  storyId: number;
   title?: string;
   paragraph: string;
-  optionId: number | null;
   options: StoryOptionPreview[];
   onOptionSelect: (depth: number, optionId: number) => void;
   depth: number;
-  onCreate: (option: StoryOption) => void;
   isOptionSelected: (optionId: number) => boolean;
   typingLevel: number[];
   setTypingLevel: (typingLevel: number[]) => void;
   storyPath: StoryOption[];
   typeSpeed: number;
   typeWait: number;
+  showOptionCreator: boolean;
+  setShowOptionCreator: (showOptionCreator: boolean) => void;
+  isStoryStarted: boolean;
 }
 
 const StoryCard: React.FC<StoryCardProps> = ({
-  storyId,
   title,
   paragraph,
-  optionId,
   options,
   onOptionSelect,
   depth,
-  onCreate,
   isOptionSelected,
   typingLevel,
   setTypingLevel,
   storyPath,
   typeSpeed,
   typeWait,
+  showOptionCreator,
+  setShowOptionCreator,
+  isStoryStarted,
 }) => {
   const lastTypingLevel = typingLevel[depth];
   const onCurrentDepth = storyPath.length === depth;
+  const titleFontSize = isStoryStarted ? "2em" : "1.5em";
+  const fontWeight = isStoryStarted ? "bold" : "bold";
 
-  // console.log({
-  //   depth,
-  //   lastTypingLevel,
-  //   typingLevel,
-  //   onCurrentDepth,
-  // });
   const renderHeader = (title: string) => {
     const shouldType = onCurrentDepth && lastTypingLevel === 0;
     if (shouldType) {
@@ -72,15 +66,21 @@ const StoryCard: React.FC<StoryCardProps> = ({
           speed={typeSpeed}
           cursor={false}
           style={{
-            fontSize: "2em",
+            fontSize: titleFontSize,
             display: "inline-block",
             color: DARK_GREEN,
+            fontWeight,
           }}
         />
       );
     } else {
       return (
-        <Text as="span" fontSize="2em" color={DARK_GREEN}>
+        <Text
+          as="span"
+          fontSize={titleFontSize}
+          fontWeight={fontWeight}
+          color={DARK_GREEN}
+        >
           {title}
         </Text>
       );
@@ -100,9 +100,10 @@ const StoryCard: React.FC<StoryCardProps> = ({
           wrapper="span"
           cursor={false}
           style={{
-            fontSize: "1.5em",
+            fontSize: "1em",
             display: "inline-block",
-            color: DARK_GREEN,
+            color: DARK_GRAY,
+            fontWeight: "bold",
           }}
           // @ts-ignore
           speed={typeSpeed}
@@ -110,7 +111,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
       );
     } else {
       return (
-        <Text as="span" fontSize="1.5em" color={DARK_GREEN}>
+        <Text as="span" fontSize="1em" color={DARK_GRAY} fontWeight="bold">
           {paragraph}
         </Text>
       );
@@ -136,9 +137,8 @@ const StoryCard: React.FC<StoryCardProps> = ({
               options={options}
               onClick={(optionId: number) => onOptionSelect(depth, optionId)}
               isOptionSelected={isOptionSelected}
-              storyId={storyId}
-              parentOptionId={optionId}
-              onCreate={onCreate}
+              showOptionCreator={showOptionCreator}
+              setShowOptionCreator={setShowOptionCreator}
             />
           )}
         </CardBody>

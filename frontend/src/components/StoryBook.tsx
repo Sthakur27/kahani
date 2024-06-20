@@ -23,6 +23,8 @@ interface StoryBookProps {
   setTypingLevel: (typingLevel: number[]) => void;
   typeSpeed: number;
   typeWait: number;
+  showOptionCreator: boolean;
+  setShowOptionCreator: (showOptionCreator: boolean) => void;
 }
 
 const StoryBook: React.FC<StoryBookProps> = ({
@@ -35,6 +37,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
   setTypingLevel,
   typeSpeed,
   typeWait,
+  showOptionCreator,
+  setShowOptionCreator,
 }) => {
   const depth = storyPath.length;
   const latestOptions = storyPath.length
@@ -118,9 +122,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
                 onOptionSelect(depth, optionId);
               }}
               isOptionSelected={isOptionSelected}
-              storyId={story.id}
-              parentOptionId={lastOptionId}
-              onCreate={onCreate}
+              showOptionCreator={showOptionCreator}
+              setShowOptionCreator={setShowOptionCreator}
             />
           )}
         </CardFooter>

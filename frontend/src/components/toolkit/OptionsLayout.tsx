@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { Box, HStack, Stack } from "@chakra-ui/react";
+import { HStack, Stack } from "@chakra-ui/react";
 import KahaniButton from "./KahaniButton";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import OptionCreator from "./OptionCreator";
-import OptionCreator2 from "./OptionCreator2";
-import { StoryOption } from "../../types/Story";
 import { TiMinus, TiPlus } from "react-icons/ti";
 
 interface Option {
@@ -16,21 +13,18 @@ interface OptionsLayoutProps {
   options: Option[];
   onClick: (id: number) => void;
   isOptionSelected: (optionId: number) => boolean;
-  storyId: number;
-  parentOptionId: number | null;
-  onCreate: (option: StoryOption) => void;
+  showOptionCreator: boolean;
+  setShowOptionCreator: (showOptionCreator: boolean) => void;
 }
 
 const OptionsLayout: React.FC<OptionsLayoutProps> = ({
   options,
   onClick,
   isOptionSelected,
-  storyId,
-  parentOptionId,
-  onCreate,
+  showOptionCreator,
+  setShowOptionCreator,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const [showInputs, setShowInputs] = useState<boolean>(false);
   const visibleOptions = 3;
 
   const handleNext = () => {
@@ -78,35 +72,16 @@ const OptionsLayout: React.FC<OptionsLayoutProps> = ({
             variant="navigate"
           />
         )}
-        {/* {!options.some((x) => isOptionSelected(x.id)) && (
-          <OptionCreator
-            storyId={storyId}
-            parentOptionId={parentOptionId}
-            onCreate={(option: StoryOption) => {
-              onCreate(option);
-              setStartIndex(Math.max(0, options.length - visibleOptions));
-            }}
+
+        {!options.some((x) => isOptionSelected(x.id)) && (
+          <KahaniButton
+            size="md"
+            onClick={() => setShowOptionCreator(!showOptionCreator)}
+            name={showOptionCreator ? <TiMinus /> : <TiPlus />}
+            variant="create"
           />
-        )} */}
-        <KahaniButton
-          size="md"
-          onClick={() => setShowInputs(!showInputs)}
-          name={showInputs ? <TiMinus /> : <TiPlus />}
-          variant="create"
-        />
+        )}
       </HStack>
-      {showInputs && !options.some((x) => isOptionSelected(x.id)) && (
-        <OptionCreator2
-          storyId={storyId}
-          parentOptionId={parentOptionId}
-          onCreate={(option: StoryOption) => {
-            onCreate(option);
-            setStartIndex(Math.max(0, options.length - visibleOptions));
-          }}
-          showInputs={showInputs}
-          setShowInputs={setShowInputs}
-        />
-      )}
     </Stack>
   );
 };
