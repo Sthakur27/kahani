@@ -1,4 +1,3 @@
-// src/components/HomePage.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +5,7 @@ import { Box, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { DARK_GREEN, MINT_GREEN } from "../colors";
 import { StoryPreview } from "../types/Story";
 import KahaniButton from "./toolkit/KahaniButton";
+import CreateStoryModal from "./CreateStoryModal";
 
 const HomePage: React.FC = () => {
   const [stories, setStories] = useState<StoryPreview[]>([]);
@@ -57,12 +57,7 @@ const HomePage: React.FC = () => {
               />
             ))}
           </SimpleGrid>
-          <KahaniButton
-            size="lg"
-            onClick={() => navigate(`/create-story`)}
-            name="Create New Story!"
-            variant="create"
-          />
+          <CreateStoryModal />
         </Stack>
       </Box>
     </Flex>
