@@ -60,6 +60,11 @@ const StoryView: React.FC = () => {
     selectedOptions.includes(optionId);
 
   const handleOptionSelect = async (depth: number, optionId: number) => {
+    setCreateMode("title");
+    setShowOptionCreator(false);
+    setText("");
+    setParagraph("");
+
     // undo choice
     if (isOptionSelected(optionId)) {
       setStoryPath(trim(storyPath, depth));
