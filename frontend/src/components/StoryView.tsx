@@ -5,65 +5,86 @@ import { useParams } from "react-router-dom";
 import { Box, Spinner, Flex, Stack } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
 import { MINT_GREEN, DARK_GREEN } from "../colors";
-import StoryCard from "./StoryCard";
 import StoryBook from "./StoryBook";
 import BackToHomeButton from "./toolkit/BackToHomeButton";
 import KahaniButton from "./toolkit/KahaniButton";
 import { PiCardsFill } from "react-icons/pi";
 import { IoBook } from "react-icons/io5";
 import StoryDeck from "./StoryDeck";
+import { trim } from "../utils";
+import { RiSpeedMiniFill } from "react-icons/ri";
+import { RiPencilFill } from "react-icons/ri";
+import {
+  FAST_TYPE_SPEED,
+  FAST_TYPE_WAIT,
+  TYPE_SPEED,
+  TYPE_WAIT,
+} from "./constants";
 
 const StoryView: React.FC = () => {
+  const [bookMode, setBookMode] = useState<boolean>(true);
+  const [typeFast, setTypeFast] = useState<boolean>(true);
+
+  const typeSpeed = typeFast ? FAST_TYPE_SPEED : TYPE_SPEED;
+  const typeWait = typeFast ? FAST_TYPE_WAIT : TYPE_WAIT;
+
   const { storyId } = useParams<{ storyId: string }>();
   const [story, setStory] = useState<Story | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [storyPath, setStoryPath] = useState<StoryOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-  const [cardMode, setCardMode] = useState<boolean>(false);
   const [typingLevel, setTypingLevel] = useState<number[]>([0]); // 0 for story start, 1 ended story, 2 for option end
 
-  const getStoryOption = (
-    path: StoryOption[],
-    options: number[],
-    optionId: number
-  ) => {
-    axios
-      .get<StoryOption>(`http://localhost:5000/options/${optionId}`)
-      .then((response) => {
-        setStoryPath([...path, response.data]);
-        setSelectedOptions([...options, optionId]);
-        setTypingLevel([...typingLevel, 0]);
-      })
-      .catch((error) => {
-        console.error("Error fetching story option:", error);
-      });
-  };
-  const isOptionSelected = (optionId: number) => {
-    return selectedOptions.includes(optionId);
-  };
-
-  const handleOptionSelect = (depth: number, optionId: number) => {
-    console.log("Option selected: ", optionId);
-    console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
-
-    if (selectedOptions[selectedOptions.length - 1] === optionId) {
-      console.log("back");
-      setStoryPath(storyPath.slice(0, depth));
-      setSelectedOptions(selectedOptions.slice(0, depth));
-      setTypingLevel(typingLevel.slice(0, depth));
-    } else {
-      console.log("forward");
-      getStoryOption(
-        storyPath.slice(0, depth),
-        selectedOptions.slice(0, depth),
-        optionId
+  console.log(typingLevel);
+  console.log(selectedOptions);
+  const getStoryOption = async (optionId: number) => {
+    try {
+      const response = await axios.get<StoryOption>(
+        `http://localhost:5000/options/${optionId}`
       );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching story option:", error);
     }
-    // console.log({ selectedOptions, storyPath: storyPath.map((s) => s.id) });
+  };
+
+  const isOptionSelected = (optionId: number) =>
+    selectedOptions.includes(optionId);
+
+  const handleOptionSelect = async (depth: number, optionId: number) => {
+    // undo choice
+    if (isOptionSelected(optionId)) {
+      setStoryPath(trim(storyPath, depth));
+      setSelectedOptions(trim(selectedOptions, depth));
+      setTypingLevel(trim(typingLevel, depth + 1));
+      return;
+    }
+
+    // choose different path in the past
+    if (depth < selectedOptions.length) {
+      console.log("backtrack");
+      const newOption = await getStoryOption(optionId);
+      if (newOption) {
+        setStoryPath([...trim(storyPath, depth), newOption]);
+        setSelectedOptions([...trim(selectedOptions, depth), optionId]);
+        setTypingLevel([...trim(typingLevel, depth + 1), 0]);
+      }
+      return;
+    }
+
+    // go forward
+    const newOption = await getStoryOption(optionId);
+    if (newOption) {
+      setStoryPath([...storyPath, newOption]);
+      setSelectedOptions([...selectedOptions, optionId]);
+      setTypingLevel([...typingLevel, 0]);
+    }
   };
 
   const onCreate = (option: StoryOption) => {
-    setStoryPath([...storyPath, option]);
+    const tempStoryPath = [...storyPath];
+    tempStoryPath[tempStoryPath.length - 1].childOptions.push(option);
+    setStoryPath([...tempStoryPath, option]);
     setSelectedOptions([...selectedOptions, option.id]);
     setTypingLevel([...typingLevel, 0]);
   };
@@ -101,15 +122,21 @@ const StoryView: React.FC = () => {
           <BackToHomeButton />
           <KahaniButton
             size="lg"
-            onClick={() => setCardMode(!cardMode)}
-            name={cardMode ? <IoBook /> : <PiCardsFill />}
-            variant={cardMode ? "click" : "create"}
+            onClick={() => setBookMode(!bookMode)}
+            name={bookMode ? <IoBook /> : <PiCardsFill />}
+            variant={bookMode ? "click" : "create"}
+          />
+          <KahaniButton
+            size="lg"
+            onClick={() => setTypeFast(!typeFast)}
+            name={typeFast ? <RiSpeedMiniFill /> : <RiPencilFill />}
+            variant={typeFast ? "create" : "click"}
           />
         </Stack>
       </Box>
       <Box p={5} maxW="800px" width="100%">
         <Stack spacing={5} align="center">
-          {cardMode ? (
+          {bookMode ? (
             <StoryBook
               story={story}
               storyPath={storyPath}
@@ -118,6 +145,8 @@ const StoryView: React.FC = () => {
               isOptionSelected={isOptionSelected}
               typingLevel={typingLevel}
               setTypingLevel={setTypingLevel}
+              typeSpeed={typeSpeed}
+              typeWait={typeWait}
             />
           ) : (
             <StoryDeck
@@ -129,6 +158,8 @@ const StoryView: React.FC = () => {
               isOptionSelected={isOptionSelected}
               typingLevel={typingLevel}
               setTypingLevel={setTypingLevel}
+              typeSpeed={typeSpeed}
+              typeWait={typeWait}
             />
           )}
         </Stack>

@@ -8,6 +8,8 @@ interface StoryBookChapterProps {
   isUserResponse: boolean;
   typingCallBack?: () => void;
   shouldType: boolean;
+  typeSpeed: number;
+  typeWait: number;
 }
 
 const StoryBookChapter: React.FC<StoryBookChapterProps> = ({
@@ -15,6 +17,8 @@ const StoryBookChapter: React.FC<StoryBookChapterProps> = ({
   isUserResponse,
   typingCallBack,
   shouldType,
+  typeSpeed,
+  typeWait,
 }) => {
   return (
     <Flex
@@ -31,6 +35,9 @@ const StoryBookChapter: React.FC<StoryBookChapterProps> = ({
             disabled={true}
             variant={isUserResponse ? "optionText" : "storyText"}
             typingCallback={typingCallBack}
+            maxWidth="700px"
+            typeSpeed={typeSpeed}
+            typeWait={typeWait}
           />
         ) : (
           <KahaniButton
@@ -39,6 +46,7 @@ const StoryBookChapter: React.FC<StoryBookChapterProps> = ({
             name={text}
             disabled={true}
             variant={isUserResponse ? "optionText" : "storyText"}
+            maxWidth="700px"
           />
         )}
       </Box>

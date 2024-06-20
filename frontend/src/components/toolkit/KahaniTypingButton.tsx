@@ -3,6 +3,7 @@ import React from "react";
 import { TypeAnimation } from "react-type-animation";
 import KahaniButton from "./KahaniButton";
 import { TYPE_SPEED, TYPE_WAIT } from "../constants";
+import { Box } from "@chakra-ui/react";
 
 interface KahaniTypingButtonProps {
   size: string;
@@ -18,6 +19,8 @@ interface KahaniTypingButtonProps {
   maxWidth?: string;
   disabled?: boolean;
   typingCallback?: () => void;
+  typeSpeed: number;
+  typeWait: number;
 }
 
 const KahaniTypingButton: React.FC<KahaniTypingButtonProps> = ({
@@ -28,18 +31,22 @@ const KahaniTypingButton: React.FC<KahaniTypingButtonProps> = ({
   maxWidth,
   disabled,
   typingCallback,
+  typeSpeed,
+  typeWait,
 }) => {
   const buttonContent = typingCallback ? (
     <TypeAnimation
-      sequence={[name, TYPE_WAIT, typingCallback]}
+      sequence={[name, typeWait, typingCallback]}
       cursor={false}
-      speed={TYPE_SPEED}
+      // @ts-ignore
+      speed={typeSpeed}
     />
   ) : (
     <TypeAnimation
-      sequence={[name, TYPE_WAIT]}
+      sequence={[name, typeWait]}
       cursor={false}
-      speed={TYPE_SPEED}
+      // @ts-ignore
+      speed={typeSpeed}
     />
   );
 
@@ -47,7 +54,11 @@ const KahaniTypingButton: React.FC<KahaniTypingButtonProps> = ({
     <KahaniButton
       size={size}
       onClick={onClick}
-      name={buttonContent}
+      name={
+        <Box maxWidth={maxWidth} overflowY="auto">
+          {buttonContent}
+        </Box>
+      }
       variant={variant}
       maxWidth={maxWidth}
       disabled={disabled}

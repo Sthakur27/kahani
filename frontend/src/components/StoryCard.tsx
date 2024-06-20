@@ -28,6 +28,8 @@ interface StoryCardProps {
   typingLevel: number[];
   setTypingLevel: (typingLevel: number[]) => void;
   storyPath: StoryOption[];
+  typeSpeed: number;
+  typeWait: number;
 }
 
 const StoryCard: React.FC<StoryCardProps> = ({
@@ -43,6 +45,8 @@ const StoryCard: React.FC<StoryCardProps> = ({
   typingLevel,
   setTypingLevel,
   storyPath,
+  typeSpeed,
+  typeWait,
 }) => {
   const lastTypingLevel = typingLevel[depth];
   const onCurrentDepth = storyPath.length === depth;
@@ -60,11 +64,12 @@ const StoryCard: React.FC<StoryCardProps> = ({
         <TypeAnimation
           sequence={[
             title,
-            TYPE_WAIT,
+            typeWait,
             () => setTypingLevel([...typingLevel.slice(0, depth), 1]),
           ]}
           wrapper="span"
-          speed={TYPE_SPEED}
+          // @ts-ignore
+          speed={typeSpeed}
           cursor={false}
           style={{
             fontSize: "2em",
@@ -89,7 +94,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
         <TypeAnimation
           sequence={[
             paragraph,
-            TYPE_WAIT,
+            typeWait,
             () => setTypingLevel([...typingLevel.slice(0, depth), 2]),
           ]}
           wrapper="span"
@@ -99,7 +104,8 @@ const StoryCard: React.FC<StoryCardProps> = ({
             display: "inline-block",
             color: DARK_GREEN,
           }}
-          speed={TYPE_SPEED}
+          // @ts-ignore
+          speed={typeSpeed}
         />
       );
     } else {

@@ -12,6 +12,8 @@ interface StoryDeckProps {
   isOptionSelected: (optionId: number) => boolean;
   typingLevel: number[];
   setTypingLevel: (typingLevel: number[]) => void;
+  typeSpeed: number;
+  typeWait: number;
 }
 
 const StoryDeck: React.FC<StoryDeckProps> = ({
@@ -23,6 +25,8 @@ const StoryDeck: React.FC<StoryDeckProps> = ({
   isOptionSelected,
   typingLevel,
   setTypingLevel,
+  typeSpeed,
+  typeWait,
 }) => {
   return (
     <>
@@ -39,6 +43,8 @@ const StoryDeck: React.FC<StoryDeckProps> = ({
         typingLevel={typingLevel}
         setTypingLevel={setTypingLevel}
         storyPath={storyPath}
+        typeSpeed={typeSpeed}
+        typeWait={typeWait}
       />
       {storyPath.map((section, index) => (
         <StoryCard // sections of option name and content + controls
@@ -55,6 +61,8 @@ const StoryDeck: React.FC<StoryDeckProps> = ({
           typingLevel={typingLevel}
           setTypingLevel={setTypingLevel}
           storyPath={storyPath}
+          typeSpeed={typeSpeed}
+          typeWait={typeWait}
         />
       ))}
     </>

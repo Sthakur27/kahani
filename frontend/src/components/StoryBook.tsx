@@ -21,6 +21,8 @@ interface StoryBookProps {
   isOptionSelected: (optionId: number) => boolean;
   typingLevel: number[];
   setTypingLevel: (typingLevel: number[]) => void;
+  typeSpeed: number;
+  typeWait: number;
 }
 
 const StoryBook: React.FC<StoryBookProps> = ({
@@ -31,6 +33,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
   isOptionSelected,
   typingLevel,
   setTypingLevel,
+  typeSpeed,
+  typeWait,
 }) => {
   const depth = storyPath.length;
   const latestOptions = storyPath.length
@@ -64,6 +68,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
               setTypingLevel([2]);
             }}
             shouldType={storyPath.length === 0}
+            typeSpeed={typeSpeed}
+            typeWait={typeWait}
           />
           {storyPath.map((storyOption, index) => {
             return (
@@ -77,6 +83,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
                   shouldType={
                     storyPath.length === index + 1 && lastTypingLevel === 0
                   }
+                  typeSpeed={typeSpeed}
+                  typeWait={typeWait}
                 />
                 {typingLevel[index + 1] >= 1 && (
                   <StoryBookChapter // body
@@ -90,6 +98,8 @@ const StoryBook: React.FC<StoryBookProps> = ({
                     shouldType={
                       storyPath.length === index + 1 && lastTypingLevel === 1
                     }
+                    typeSpeed={typeSpeed}
+                    typeWait={typeWait}
                   />
                 )}
               </Stack>
