@@ -1,4 +1,5 @@
 # kahani
+Simple application for writing stories together to then turn into a text based decision tree adventure
 Single-database configuration for Flask.
 
 
