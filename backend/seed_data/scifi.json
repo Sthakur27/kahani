@@ -1,0 +1,109 @@
+{
+  "title": "Waste Heat",
+  "intro": "You are the only crew awake aboard the tug Anassa, eleven AU out, dragging four hundred thousand tonnes of Kuiper ice toward the inner system on a twenty-year contract. Ninety minutes ago a grain of something struck radiator panel three and opened a six millimeter hole in the ammonia loop. The reactor is still making two hundred kilowatts of waste heat and you have lost a third of your ability to throw it away. Cabin temperature is thirty-one degrees and climbing about one degree an hour. A message to Earth takes ninety minutes each way, so whatever you decide, you decide alone.",
+  "options": [
+    {
+      "text": "Suit up and patch radiator panel three by hand",
+      "paragraph": "You close the isolation valves either side of the damaged segment, purge what ammonia is left in it, and cycle the airlock with ninety minutes of consumables on your back. Panel three hangs in the shadow of the ice, radiating almost nothing, and vented ammonia has plated the whole section white with frost. Up close the puncture is less a hole than a crater, with a split running two hand-widths downstream of it. The split is the real problem.",
+      "children": [
+        {
+          "text": "Cannibalize a replacement section from the drive shroud",
+          "paragraph": "The shroud panels carry the same part number and a higher flux rating, and the tug will never need them unless you restart the main drive. You cut four bolts with the impact driver, walk the section down the truss on a tether, and bolt it across the split with the old gaskets scraped clean. It is ugly and it is one size wrong, but it holds pressure when you pump the segment back up.",
+          "children": [
+            {
+              "text": "Bleed the segment back in slowly to keep the pumps primed",
+              "paragraph": "You open the isolation valve a quarter turn and watch loop pressure climb over forty minutes instead of forty seconds. The pumps never cavitate, the new section fills without a vapor lock, and by the time you are back inside the cabin is at twenty-nine degrees and falling. You have lost eleven percent of your ammonia and perhaps four years off that panel's design life. The Anassa will make her window, slower and dirtier, with you awake to see it.",
+              "children": []
+            },
+            {
+              "text": "Crack the valve wide and get inside before your air runs out",
+              "paragraph": "You have nineteen minutes of margin and you spend three of them on the valve. The surge slams the loop, the branch pump swallows vapor and stalls, and the new section fills half full while the rest sits dry and useless. Inside, helmet off, you watch heat rejection settle at sixty percent of nominal, which is enough to live at quarter power and not enough to run the drive. You will arrive nine years late, if the ammonia lasts, and you stop doing that arithmetic.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Clamp the split with the emergency repair kit and repressurize",
+          "paragraph": "The kit is a steel saddle clamp and a tube of two-part epoxy rated for vacuum, meant for a pinhole and not for a two-hand split. You work the epoxy in with a spatula that keeps freezing to the metal, torque the saddle down in a star pattern, and sit out the full cure hour while your suit heater drains its batteries. When you repressurize the segment it holds at one point six bar. It will not hold at two.",
+          "children": [
+            {
+              "text": "Derate the loop and sleep in four hour shifts",
+              "paragraph": "You run the whole cooling system at one point four bar, which costs about a fifth of your heat rejection, and you throttle the reactor to match. Every four hours an alarm wakes you to walk the truss with a thermal camera, looking for the white bloom of a leak. Six weeks later the clamp is still there, discolored and slightly bowed, and you have stopped dreaming about it. The contract does not pay for elegance.",
+              "children": []
+            },
+            {
+              "text": "Trust the patch, run full power, and hold your transfer window",
+              "paragraph": "You bring the reactor back up and the loop to two bar, because the window closes in nine days and the next one is four years out. The clamp holds for thirty hours. When it lets go it goes all at once, dumping the segment to vacuum in under a minute and taking the branch pump's seals with it. You are left with one working radiator wing, a reactor you have to scram, and a ship that is now, unavoidably, a very large piece of ice going the wrong way.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Throttle the reactor to twenty percent and ride the tug cold",
+      "paragraph": "You pull the drive offline, drop the reactor to its lowest stable setting, and shut down everything that is not a pump, a scrubber, or a light. Heat production falls to about fifty kilowatts, which the two undamaged radiator wings can throw away with margin. The cabin stabilizes at eighteen degrees and then keeps dropping, and within three days you are working in gloves.",
+      "children": [
+        {
+          "text": "Go back into the hibernation pod and let the ship coast",
+          "paragraph": "The pod draws four hundred watts to hold one human at eight degrees core, which is cheaper than keeping a cabin habitable. You dose yourself, hand the loop alarms to the pod controller, and lie down in a ship already too cold to sweat in. The last thing on the panel is the tow mass, unchanged, still following you down the long arc.",
+          "children": [
+            {
+              "text": "Set the wake alarm for the Ceres transponder, eleven years out",
+              "paragraph": "You tell the controller to wake you when it hears Ceres traffic control, and for nothing else short of a loop failure. Eleven years and four months later you come up through the drug fog to an amber board, a reactor at nineteen percent, and a cargo that is still eight percent of a year's water for the Belt. Salvage law says a tug that arrives under power is not salvage. You arrive under power.",
+              "children": []
+            },
+            {
+              "text": "Leave the alarm off and let mission control wake you when they can",
+              "paragraph": "You route wake authority to the ground and go under, which is the procedure, and the procedure assumes someone is listening. The relay at Jupiter is decommissioned fourteen months later, and the company holding your contract is sold twice. The pod keeps you at eight degrees for as long as the reactor runs, and the reactor runs a long time. Whether that counts as living is a question for whoever finds you.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Stay awake and vent the cabin atmosphere to shed heat fast",
+          "paragraph": "You get into the suit, open the dump valve, and watch eight hundred kilograms of warm nitrogen and oxygen leave in ninety seconds, carrying a real but small amount of heat with it. Cabin temperature drops six degrees and then climbs right back, because the reactor is still running and gas was never how you were cooling. Now you have a cold ship, a leak you made on purpose, and four days of suit consumables in place of a year of cabin air. You repressurize from the reserve tanks and spend the rest of the transit knowing exactly what that cost.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Use the tow itself and run the coolant loop into the ice",
+      "paragraph": "There are four hundred thousand tonnes of water ice on the end of your tether, and every kilogram of it will absorb three hundred and thirty kilojoules just to melt. It is the largest heat sink within eleven AU and you are bolted to it. The problem is plumbing: two hundred meters of flexible line, one spare pump, and no drill rated for anything harder than regolith.",
+      "children": [
+        {
+          "text": "Sink a bore into the ice and circulate the loop through it",
+          "paragraph": "You do not drill so much as melt, pushing a heated probe in at a centimeter a minute and feeding the flexible line behind it. Six hours later you have a circuit running four meters into the mass, and cabin temperature breaks and starts falling for the first time in two days. The ice takes the heat without complaint. What it does with the meltwater is another question.",
+          "children": [
+            {
+              "text": "Keep the bore open and accept the mass loss as venting steam",
+              "paragraph": "You let the cavity vent, and it does, a steady white plume you can see from the cabin window at any hour. It cools beautifully. Over the following months the tow mass falls from four hundred thousand tonnes to three hundred and ten, which is still a fortune in water and is also ninety thousand tonnes of cargo you sold to vacuum. The Belt pays for what arrives, and what arrives is enough.",
+              "children": []
+            },
+            {
+              "text": "Cap the bore the moment the ice starts to fracture",
+              "paragraph": "The first crack propagates on day nine, a sound in the tether you feel through the deck plates rather than hear. You cap the bore and pull the line, but the cavity is already a pressure vessel with a hundred thousand tonnes of ice around it and nowhere for the steam to go. When the mass splits it splits along the melt front, and the two halves separate at about a meter a second. The tether holds one of them.",
+              "children": [
+                {
+                  "text": "Cut the fouled rigging and rebuild the burn around the half you kept",
+                  "paragraph": "You survey what is left and find a hundred and eighty thousand tonnes still rigged and sound. The radiator problem solved itself when the reactor scrammed during the split, and with half the mass you can live with half the heat rejection. You replan the burn by hand, because the flight computer refuses a tow it cannot mass properly. It is not the contract you signed, but it is a contract.",
+                  "children": []
+                },
+                {
+                  "text": "Go dark, file a claim beacon, and let the Belt tugs come to you",
+                  "paragraph": "You transmit your position, your remaining mass, and the fact that you are not under power, then take the reactor to standby and wait. A claim beacon on a hundred and eighty thousand tonnes of ice will bring somebody, and salvage law will bring them fast. They reach you in seven months and they are entitled to most of it. You are alive, you are aboard someone else's ship, and the Anassa is a line item on their manifest.",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Release the tow and run light for the inner system",
+          "paragraph": "Without four hundred thousand tonnes behind her the Anassa is a different vehicle: same reactor, same radiators, a hundredth of the inertia. You blow the tether pins, set the drive at forty percent, and cut nineteen years out of the transit. The heat problem is unchanged, but a tug that docks in eight months on two radiator wings is a tug that gets repaired. The ice keeps going on its old trajectory, unpowered and unclaimed, and you spend the rest of the flight composing the message that explains why.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "title": "The Salt Ledger of Vennik-on-Brine",
+  "intro": "The Slow Tide comes to Vennik-on-Brine every ninth night, and it takes whatever has not been properly named. You are third-year apprentice to Hesper Vane, saltwright, who taught you to cut a name so deep into a block of grey salt that the water reads it and passes politely by. Last Thursday somebody bought her name out of the city ledger, and now the harbourmaster, her own sister, and the dog that sleeps under her bench all look at you blankly when you say it. You have eight days before the water comes back for whatever is left of her. The chip of salt in your pocket is still warm from her hands.",
+  "options": [
+    {
+      "text": "Hunt the tide-market for whoever bought her name",
+      "paragraph": "The tide-market runs the length of the seventh pier, and at low water it smells like old coins and boiled kelp. You go stall to stall holding out a blank salt chip, asking who has been buying names this season. Three vendors refuse to look at it; the fourth, a woman selling ledger-wax by the yard, tells you to try Ilse Quill, and then asks you to be gone before her shutters come down.",
+      "children": [
+        {
+          "text": "Corner Ilse Quill behind her salt scales",
+          "paragraph": "Quill weighs names the way a butcher weighs liver, thumb resting lightly on the pan. She does not bother denying it. She says Hesper Vane's name went out cheap because Hesper set the price herself, and she slides a wafer of grey salt across the counter so you can read the receipt with your tongue.",
+          "children": [
+            {
+              "text": "Pay for the receipt with your mother's voice",
+              "paragraph": "You let Quill scrape the sound of your mother saying your name off the inside of your skull, and it goes into the scale pan without making any noise at all. In exchange you learn the buyer was the Countinghouse, and the agreed price was one dry season for the marsh. You walk home able to picture your mother perfectly, mouth moving, saying nothing, forever.",
+              "children": []
+            },
+            {
+              "text": "Palm the ledger-chip from under her scale",
+              "paragraph": "You cough, she glances at the door, and the chip is up your sleeve before the brass stops rocking. It is colder than salt has any right to be, and it hums against your wrist like a wasp shut in a jar. Behind you Quill goes on weighing and does not raise the alarm, which frightens you more than shouting would have.",
+              "children": [
+                {
+                  "text": "Run for the causeway before the water turns",
+                  "paragraph": "You make the causeway with the chip burning cold in your fist and the tide already fingering the lower steps. Halfway across you finally read the name cut into it, and it is not Hesper's, it is yours, sold six years ago by a woman who wanted you to have a life nobody could look up. You reach the far bank a stranger to the city and free of it, and you sit down in the reeds and laugh until sunrise.",
+                  "children": []
+                },
+                {
+                  "text": "Swallow the chip and let it dissolve inside you",
+                  "paragraph": "It tastes of pier pilings and somebody else's winter. For nine days you carry Hesper's name in the soft dark behind your ribs, where the tide cannot read it and neither can the Countinghouse. You are the ledger now, and you will never again be able to say her name out loud without handing it back.",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "text": "Follow the spilled salt dust up to the Countinghouse",
+          "paragraph": "The trail is a thin grey line along the boards, the kind of spill only a careless clerk leaves, and it climbs the hill away from the water. The Countinghouse is the one building in Vennik with a dry cellar, which everyone knows and nobody discusses. Inside, the air is so dry your lips split, and the clerks write standing up so their cuffs will not smudge the columns.",
+          "children": [
+            {
+              "text": "Bargain with the auditor who has no mouth",
+              "paragraph": "The auditor listens by resting two fingers against your throat while you talk. When you run out of words she writes her offer on her own palm: Hesper's name returned, in exchange for nine years of yours, payable now, taken from the end. You agree, and the years come off you like a wet coat, and Hesper walks out of the dry cellar blinking, forty-one years old, asking who on earth you are.",
+              "children": []
+            },
+            {
+              "text": "Set fire to the ledgers and cancel every debt",
+              "paragraph": "Dry paper in a dry cellar goes up like a held breath. Names lift off the burning pages and drift out over the marsh, and all along the waterfront people stop mid-sentence, no longer sure who they were arguing with. Hesper Vane is remembered by everyone again, and so is every debt-slave and drowned man the city had quietly balanced away, and by morning nobody in Vennik can meet anybody else's eye.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Cut your own name out and follow her into the water",
+      "paragraph": "You take the small chisel she gave you at thirteen, the one with her grip worn into the handle. A name cut out of the ledger is not destroyed, it simply goes where unnamed things go, and the only door to that place is the tide. You sit at the cutting bench with the block across your knees and wait for your hands to stop shaking.",
+      "children": [
+        {
+          "text": "Carve it clean through and walk down the water stairs",
+          "paragraph": "The letters come away in flakes that hiss where they land. By the time you reach the water stairs the fishmonger is already looking straight through you, and the tide stands at the fourth step, patient as a landlord. You step in, and the marsh takes you the way dry paper takes ink.",
+          "children": [
+            {
+              "text": "Hold onto one thing: the smell of her workshop",
+              "paragraph": "Everything goes except brine and hot brass and the sour-sweet rot of soaked rope, and you follow that smell down through water that is made entirely of voices. You find her at the bottom, still cutting, still complaining about the grain of the block. Neither of you has a name any more, but the smell is enough to work by, and you pick up the second chisel.",
+              "children": []
+            },
+            {
+              "text": "Let go of everything and drift with the drowned",
+              "paragraph": "It is easier than you expected, like sliding off a bench you were never comfortable on. The drowned do not speak, they hum, one long chord with a gap in it exactly your size. Somewhere far above, a shutter in Vennik bangs in a wind nobody notices, and the city's population is recorded correctly for the first time in eighty years.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Cut out only your family name and keep the rest",
+          "paragraph": "Half a name is a door propped open with a boot. You keep what she called you and lose everyone who ever used the other half, so your uncles stop knowing you at the funeral and the bank files you politely under nothing. But now you can wade into the tide to the knee and walk back out, and something down there has started leaving salt chips on the step for you, cut in a hand you recognise.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Climb the belfry and wake the Ninth Bell early",
+      "paragraph": "The Ninth Bell has no clapper; you ring it by laying your hands on the bronze and telling it something true. It hangs over the drowned quarter where the ropes have gone green with weed, and the ladder up is missing three rungs on purpose. Every saltwright is taught what the bell does and forbidden to be told why.",
+      "children": [
+        {
+          "text": "Ring it once, softly, as a summons",
+          "paragraph": "You press your palms flat and say that Hesper Vane taught you everything, and the bronze warms under your hands like a horse leaning in. The water in the drowned quarter rises exactly one hand's breadth and then holds, attentive. Something that is only mostly water comes up the lane and folds itself onto the step below you to listen.",
+          "children": [
+            {
+              "text": "Offer it the rest of your years for her name",
+              "paragraph": "The tide considers the trade the way a merchant considers a cracked cup. It takes forty years off the far end of your life and hands back a name you can finally say in a crowded room. You get eleven years with her, which is not enough, and you both know precisely what it cost, and neither of you ever once calls it a mistake.",
+              "children": []
+            },
+            {
+              "text": "Refuse the trade and offer it the bell instead",
+              "paragraph": "You tell it that the bell is not the city's, it is yours, and nobody ever taught you otherwise. It takes the Ninth Bell, tower and weed-green ropes and all, and leaves a gap in the skyline that people's eyes slide off. Vennik now has no way to call the tide and no way to hold it off, and Hesper Vane walks up out of the water at dawn with weed in her hair, asking sharply what you have done.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Ring it nine times and drown the whole district",
+          "paragraph": "Nine truths, one for each year you worked her bench, and the water comes up the lanes like something answering to a name it has waited a long time to hear. The Countinghouse cellar is not dry any more; the ledgers go to pulp and every purchased name floats loose. You stand on the belfry roof and watch the district you grew up in become a harbour, with your master's name given back to you and four hundred others given back to nobody.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

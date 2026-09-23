@@ -1,0 +1,104 @@
+{
+  "title": "The Sleep Lab at Fell Creek",
+  "intro": "The Fell Creek Sleep Institute keeps six beds and one technician, and tonight the technician is you. From the monitoring room you watch six chests rise and fall on six grey screens, each one wired to a scalp full of electrodes. The building settles into its own weight the way old buildings do. At 3:11 the lines on all six charts flatten into the same shape at the same instant, the way six people might all turn to look at the same door. You have worked here four months and nobody has ever mentioned this.",
+  "options": [
+    {
+      "text": "Walk the hall and check the patient in Room 4",
+      "paragraph": "Room 4 is the only door left open. Mr. Aubrey lies with his arms flat at his sides and his eyes moving fast beneath the lids, and his mouth is shaping words with no breath behind them. You lean close enough to read them off his lips. He is counting, and he is somewhere in the forty thousands.",
+      "children": [
+        {
+          "text": "Wake him",
+          "paragraph": "You say his name and put two fingers on his shoulder. He stops mid-number without opening his eyes, and the whole hall goes quiet in the specific way that five other people holding their breath would sound. Then he tells you, still asleep, that you have made him lose his place.",
+          "children": [
+            {
+              "text": "Ask him what he is counting",
+              "paragraph": "His jaw works a long while before the answer comes, dry and unhurried. He says he is counting the ones still asleep, that the number goes down some nights and up others, and that tonight it went up by one. On the monitor behind you, a seventh chart has opened for a bed that does not exist.",
+              "children": [
+                {
+                  "text": "Go find bed seven",
+                  "paragraph": "The hall has a door at the end that you have walked past for four months without reading. The plate says 7, the paint around the frame is unbroken as if it has never once been opened, and behind it someone is breathing in the slow four-count of deep sleep. Your hand turns the handle before you decide to. The seventh chart fills for hours afterward with clean, untroubled sleep, and there is nobody left on shift to read it.",
+                  "children": []
+                },
+                {
+                  "text": "Stay in the doorway and let him keep counting",
+                  "paragraph": "You take your hand off his shoulder and step back, and after a moment he finds his place again, somewhere in the forty thousands. The seventh chart holds for another minute, then closes like a hand. At dawn the day nurse asks why you are standing in the hall, and you find that you can still answer her out loud, which is how you know you are on the correct side of the count.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "text": "Apologize and leave without looking at the other beds",
+              "paragraph": "You say sorry, which is absurd, and walk out with your eyes fixed on the grain of the floor tile. Behind you, five other mouths pick up the counting, staggered, like a round sung badly. You sit in the monitoring room with your back to the glass until the sun comes, and for the rest of your life you will have to leave any room where somebody counts aloud.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Say nothing, go back, and log the anomaly in the shift record",
+          "paragraph": "You write the time and the words simultaneous flattening, six patients, and the pen drags because the page beneath it is not blank. Someone has already logged 3:11 tonight in your handwriting, along with the next four hours, in an account of a shift you have not worked yet. You read all of it to the end.",
+          "children": [
+            {
+              "text": "Do exactly what the log says you did",
+              "paragraph": "The entries are small and ordinary: check 2, check 5, refill the humidifier, do not open the cabinet. You follow them like a recipe and the night passes without incident, which turns out to be the worst part. On your next shift the page is filled in further ahead, and the handwriting has begun to slant, the way it does when someone is writing faster than they can think.",
+              "children": []
+            },
+            {
+              "text": "Tear the page out and burn it in the parking lot",
+              "paragraph": "The paper goes up fast and smells wrong, like singed hair. Through the glass doors you can see the monitoring room with nobody in it, and the six traces on the screens are carrying a seventh line now, one that spikes every time you exhale out here in the cold. You do not go back inside. You are still not certain whether that counts as leaving.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Pull up the archived recordings from last winter",
+      "paragraph": "The archive drive is slow and the files are named only by date. You open the night that matches tonight, one year back, and the six traces flatten at 3:11 exactly, each with the same small hook at the end of the line. Every file you open does this. The oldest one is from before the building had six beds.",
+      "children": [
+        {
+          "text": "Unmute the room audio on the oldest file",
+          "paragraph": "The speakers give you eleven minutes of a ward breathing, and then, at 3:11, all of it stops at once. In the silence there is a sound like a large room being measured: a slow scrape, a pause, a slow scrape, a pause. It is coming out of the file, and also, half a second later, out of the hallway.",
+          "children": [
+            {
+              "text": "Match the sound step for step until you are walking with it",
+              "paragraph": "You take one step when it takes one, and the half-second gap closes, and then there is only one set of sounds in the hall. Walking in time with it feels like putting on a coat that was already warm. You notice, from somewhere far back, that you have stopped choosing where to go.",
+              "children": [
+                {
+                  "text": "Stop walking",
+                  "paragraph": "Stopping costs more than it should, like pulling your hand out of setting cement, and you go down hard on the tile with your ears ringing. The measuring continues without you, past the beds, out through a wall. You lie there until the ringing quits and you can hear six ordinary sleepers and one very ordinary furnace, and you never open those files again.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "text": "Kill the audio and unplug the archive drive",
+              "paragraph": "The speakers cut out and the hallway does not. You crouch under the desk with the dead drive in your lap while the measuring passes the doorway twice, patient as a man pacing a room he intends to buy. In the morning the drive is empty, every file gone, and the shift log shows that you clocked out at 3:11.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "text": "Call the number printed on the oldest file's cover sheet",
+          "paragraph": "It is answered on the first ring by a woman who does not say hello. She says your name, and the name of the room you are standing in, and asks whether it has started measuring yet. You say yes. She tells you she is sorry, that she was the technician here in 1994, and that it gets easier once you lose the ability to hear it, and then the line carries nothing but a ward breathing.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "Put your coat on, sign out, and drive home",
+      "paragraph": "You do it without hurrying, because hurrying would be admitting something. The car starts, the gate lifts, and the institute shrinks in the mirror with all of its windows lit. Four miles down the county road, your dashboard clock, which has run eight minutes fast since the day you bought the car, quietly corrects itself to 3:11.",
+      "children": [
+        {
+          "text": "Turn around and go back inside",
+          "paragraph": "The lot is empty, the doors are unlocked, and the chair in the monitoring room is still warm. On the screens, six charts have been running clean and uninterrupted this whole time, and the seventh holds the trace of someone driving, then parking, then walking down a hall. You sit down and watch yourself arrive.",
+          "children": []
+        },
+        {
+          "text": "Keep driving and do not look at the clock again",
+          "paragraph": "You watch the road and only the road. You pass the turn for your house and keep going until the fuel light comes on somewhere past the county line. The clock holds at 3:11 for eleven miles and then gives up and starts moving. You never go back for your last paycheck, you sleep with the radio on for the rest of your life, and that is the entire shape of your escape.",
+          "children": []
+        }
+      ]
+    }
+  ]
+}
