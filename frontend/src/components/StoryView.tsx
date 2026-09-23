@@ -48,7 +48,7 @@ const StoryView: React.FC = () => {
   const getStoryOption = async (optionId: number) => {
     try {
       const response = await axios.get<StoryOption>(
-        `http://localhost:5000/options/${optionId}`
+        `http://127.0.0.1:5000/options/${optionId}`
       );
       return response.data;
     } catch (error) {
@@ -108,7 +108,7 @@ const StoryView: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get<Story>(`http://localhost:5000/stories/${storyId}`)
+      .get<Story>(`http://127.0.0.1:5000/stories/${storyId}`)
       .then((response) => {
         setStory(response.data);
         setIsLoading(false);
