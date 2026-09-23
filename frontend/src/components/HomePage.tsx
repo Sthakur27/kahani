@@ -14,6 +14,7 @@ import {
 import { BORDER, GREEN, INK, INK_MUTED, PAPER, WHITE } from "../colors";
 import { StoryPreview } from "../types/Story";
 import CreateStoryModal from "./CreateStoryModal";
+import useDocumentTitle from "../useDocumentTitle";
 
 const API = "http://127.0.0.1:5000";
 
@@ -78,6 +79,8 @@ const HomePage: React.FC = () => {
   const [stories, setStories] = useState<StoryPreview[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  useDocumentTitle();
 
   useEffect(() => {
     axios

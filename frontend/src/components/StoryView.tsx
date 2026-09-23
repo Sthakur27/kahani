@@ -22,6 +22,7 @@ import {
 } from "./constants";
 import CreateStoryBookOption from "./CreateStoryBookOption";
 import CreateStoryDeckOption from "./CreateStoryDeckOption";
+import useDocumentTitle from "../useDocumentTitle";
 
 const StoryView: React.FC = () => {
   const [bookMode, setBookMode] = useState<boolean>(true);
@@ -105,6 +106,8 @@ const StoryView: React.FC = () => {
     setText("");
     setParagraph("");
   };
+
+  useDocumentTitle(story?.title);
 
   useEffect(() => {
     axios
