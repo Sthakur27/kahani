@@ -1,6 +1,8 @@
 export interface StoryPreview {
   id: number;
   title: string;
+  /** Opening paragraph, used for the excerpt on the home page. */
+  intro: string;
 }
 export interface StoryOptionPreview {
   id: number;
@@ -14,6 +16,5 @@ export interface StoryOption extends StoryOptionPreview {
 }
 
 export interface Story extends StoryPreview {
-  intro: string; // Assuming stories have an 'intro' field
   options: StoryOptionPreview[];
 }

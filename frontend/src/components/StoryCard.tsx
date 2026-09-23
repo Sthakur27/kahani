@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { StoryOption, StoryOptionPreview } from "../types/Story";
-import { DARK_GRAY, DARK_GREEN, WHITE } from "../colors";
+import { BORDER, CARD, INK, INK_BODY } from "../colors";
 import OptionsLayout from "./toolkit/OptionsLayout";
 import { TypeAnimation } from "react-type-animation";
 
@@ -68,7 +68,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
           style={{
             fontSize: titleFontSize,
             display: "inline-block",
-            color: DARK_GREEN,
+            color: INK,
             fontWeight,
           }}
         />
@@ -79,7 +79,7 @@ const StoryCard: React.FC<StoryCardProps> = ({
           as="span"
           fontSize={titleFontSize}
           fontWeight={fontWeight}
-          color={DARK_GREEN}
+          color={INK}
         >
           {title}
         </Text>
@@ -100,10 +100,11 @@ const StoryCard: React.FC<StoryCardProps> = ({
           wrapper="span"
           cursor={false}
           style={{
-            fontSize: "1em",
+            fontSize: "1.05rem",
             display: "inline-block",
-            color: DARK_GRAY,
-            fontWeight: "bold",
+            color: INK_BODY,
+            fontFamily: "'Source Serif 4', Georgia, serif",
+            lineHeight: 1.7,
           }}
           // @ts-ignore
           speed={typeSpeed}
@@ -111,7 +112,13 @@ const StoryCard: React.FC<StoryCardProps> = ({
       );
     } else {
       return (
-        <Text as="span" fontSize="1em" color={DARK_GRAY} fontWeight="bold">
+        <Text
+          as="span"
+          fontFamily="prose"
+          fontSize="1.05rem"
+          lineHeight="1.7"
+          color={INK_BODY}
+        >
           {paragraph}
         </Text>
       );
@@ -121,12 +128,14 @@ const StoryCard: React.FC<StoryCardProps> = ({
   return (
     <Stack spacing={5} align="center">
       <Card
-        p={5}
+        p={{ base: 4, md: 8 }}
         maxW="800px"
         width="800px"
-        boxShadow="dark-lg"
-        rounded="md"
-        bg={WHITE}
+        boxShadow="card"
+        borderWidth="1px"
+        borderColor={BORDER}
+        borderRadius="card"
+        bg={CARD}
       >
         <CardHeader>{title && renderHeader(title)}</CardHeader>
         <CardBody>

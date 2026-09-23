@@ -19,7 +19,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { WHITE, DARK_GRAY, PLACEHOLDER_GRAY, DARK_GREEN } from "../colors";
+import { BORDER, CARD, INK, INK_MUTED, OVERLAY } from "../colors";
 import KahaniButton from "./toolkit/KahaniButton";
 
 const CreateStoryModal: React.FC = () => {
@@ -58,58 +58,73 @@ const CreateStoryModal: React.FC = () => {
       <KahaniButton
         size="lg"
         onClick={onOpen}
-        name="Create New Story!"
+        name="Start a new story"
         variant="create"
       />
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent bg={WHITE}>
-          <ModalHeader>
-            <Text color={DARK_GREEN}>Create a New Story</Text>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+        <ModalOverlay bg={OVERLAY} backdropFilter="blur(2px)" />
+        <ModalContent bg={CARD} borderRadius="card" boxShadow="cardHover" p={2}>
+          <ModalHeader pb={1}>
+            <Text
+              as="span"
+              fontFamily="heading"
+              fontSize="1.5rem"
+              fontWeight={600}
+              color={INK}
+            >
+              Start a new story
+            </Text>
+            <Text fontSize="0.9rem" fontWeight={400} color={INK_MUTED} mt={1}>
+              Write the opening. Readers add the branches from there.
+            </Text>
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton top={4} right={4} color={INK_MUTED} />
           <ModalBody>
-            <FormControl id="title" mb={4} isRequired>
-              <FormLabel color={DARK_GREEN}>Title</FormLabel>
+            <FormControl id="title" mb={5} isRequired>
+              <FormLabel fontSize="0.85rem" fontWeight={600} color={INK}>
+                Title
+              </FormLabel>
               <Input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter story title"
-                bg={WHITE}
-                borderColor={DARK_GRAY}
-                color={DARK_GREEN}
-                _placeholder={{ color: PLACEHOLDER_GRAY }}
+                placeholder="The Sleep Lab at Fell Creek"
+                maxLength={100}
+                size="lg"
+                fontSize="1rem"
               />
             </FormControl>
-            <FormControl id="intro" mb={4} isRequired>
-              <FormLabel color={DARK_GREEN}>Intro</FormLabel>
+            <FormControl id="intro" mb={2} isRequired>
+              <FormLabel fontSize="0.85rem" fontWeight={600} color={INK}>
+                Opening
+              </FormLabel>
               <Textarea
                 value={intro}
                 onChange={(e) => setIntro(e.target.value)}
-                placeholder="Enter story intro"
-                bg={WHITE}
-                borderColor={DARK_GRAY}
-                color={DARK_GRAY}
-                _placeholder={{ color: PLACEHOLDER_GRAY }}
+                placeholder="Set the scene. Where are they, and what has just gone wrong?"
                 ref={textareaRef}
                 resize="none"
+                minH="140px"
+                fontFamily="prose"
+                fontSize="1rem"
+                lineHeight="1.7"
               />
             </FormControl>
           </ModalBody>
-          <ModalFooter>
-            <HStack spacing={5}>
-              <KahaniButton
-                size="md"
-                onClick={handleSubmit}
-                name={isLoading ? <Spinner size="md" /> : "Create Story"}
-                variant="create"
-              />
+          <ModalFooter borderTopWidth="1px" borderColor={BORDER} mt={4}>
+            <HStack spacing={3}>
               <KahaniButton
                 size="md"
                 onClick={onClose}
-                name="Close"
+                name="Cancel"
                 variant="navigate"
+              />
+              <KahaniButton
+                size="md"
+                onClick={handleSubmit}
+                disabled={isLoading || !title.trim() || !intro.trim()}
+                name={isLoading ? <Spinner size="sm" /> : "Create story"}
+                variant="create"
               />
             </HStack>
           </ModalFooter>

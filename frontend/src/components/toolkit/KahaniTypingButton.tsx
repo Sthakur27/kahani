@@ -17,6 +17,7 @@ interface KahaniTypingButtonProps {
   maxWidth?: string;
   disabled?: boolean;
   typingCallback?: () => void;
+  ariaLabel?: string;
   typeSpeed: number;
   typeWait: number;
 }

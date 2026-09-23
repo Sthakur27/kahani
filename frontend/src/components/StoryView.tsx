@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Box, Spinner, Flex, Stack } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
-import { MINT_GREEN, DARK_GREEN } from "../colors";
+import { CARD, INK, PAPER } from "../colors";
 import StoryBook from "./StoryBook";
 import BackToHomeButton from "./toolkit/BackToHomeButton";
 import KahaniButton from "./toolkit/KahaniButton";
@@ -119,35 +119,69 @@ const StoryView: React.FC = () => {
       });
   }, [storyId]);
 
-  if (isLoading) return <Spinner size="xl" />;
+  if (isLoading)
+    return (
+      <Flex bgColor={PAPER} minH="100vh" align="center" justify="center">
+        <Spinner size="xl" color={INK} thickness="3px" speed="0.8s" />
+      </Flex>
+    );
 
-  if (!story) return <Box>Story not found</Box>;
+  if (!story)
+    return (
+      <Flex
+        bgColor={PAPER}
+        minH="100vh"
+        align="center"
+        justify="center"
+        direction="column"
+        gap={5}
+      >
+        <Box fontFamily="prose" fontSize="1.15rem" color={INK}>
+          That story is not here.
+        </Box>
+        <BackToHomeButton />
+      </Flex>
+    );
 
   // console.log({ path: [story.intro, ...storyPath.map((s) => s.text)] });
 
   return (
     <Flex
-      bgColor={MINT_GREEN}
+      bgColor={PAPER}
       minH="100vh"
-      color={DARK_GREEN}
-      align="center"
+      color={INK}
+      align="flex-start"
       justify="center"
       position="relative"
+      py={{ base: 6, md: 12 }}
     >
-      <Box position="fixed" top="35px" right="30px" zIndex="1000">
-        <Stack>
+      <Box
+        position="fixed"
+        top={{ base: "16px", md: "28px" }}
+        right={{ base: "16px", md: "28px" }}
+        zIndex="1000"
+        bg={CARD}
+        borderRadius="card"
+        p={2}
+        boxShadow="card"
+      >
+        <Stack spacing={2}>
           <BackToHomeButton />
           <KahaniButton
             size="lg"
             onClick={() => setBookMode(!bookMode)}
+            ariaLabel={bookMode ? "Switch to card view" : "Switch to book view"}
             name={bookMode ? <IoBook /> : <PiCardsFill />}
-            variant={bookMode ? "click" : "create"}
+            variant={bookMode ? "selected" : "navigate"}
           />
           <KahaniButton
             size="lg"
             onClick={() => setTypeFast(!typeFast)}
+            ariaLabel={
+              typeFast ? "Slow the typing down" : "Speed the typing up"
+            }
             name={typeFast ? <RiSpeedMiniFill /> : <RiPencilFill />}
-            variant={typeFast ? "create" : "click"}
+            variant={typeFast ? "selected" : "navigate"}
           />
         </Stack>
       </Box>

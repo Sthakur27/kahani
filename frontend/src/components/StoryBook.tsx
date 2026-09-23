@@ -9,7 +9,7 @@ import {
   CardFooter,
 } from "@chakra-ui/react";
 import { Story, StoryOption } from "../types/Story";
-import { DARK_GREEN, WHITE } from "../colors";
+import { BORDER, CARD } from "../colors";
 import StoryBookChapter from "./StoryBookChapter";
 import OptionsLayout from "./toolkit/OptionsLayout";
 
@@ -47,20 +47,21 @@ const StoryBook: React.FC<StoryBookProps> = ({
   const lastOptionId = storyPath.length
     ? storyPath[storyPath.length - 1].id
     : null;
-  console.log(typingLevel);
   const lastTypingLevel = typingLevel[typingLevel.length - 1];
   return (
     <Stack spacing={5} align="center">
       <Card
-        p={5}
+        p={{ base: 4, md: 8 }}
         maxW="800px"
         width="800px"
-        boxShadow="dark-lg"
-        rounded="md"
-        bg={WHITE}
+        boxShadow="card"
+        borderWidth="1px"
+        borderColor={BORDER}
+        borderRadius="card"
+        bg={CARD}
       >
-        <CardHeader>
-          <Heading as="h1" mb={4} color={DARK_GREEN}>
+        <CardHeader pb={2}>
+          <Heading as="h1" fontSize={{ base: "1.9rem", md: "2.25rem" }}>
             {story.title}
           </Heading>
         </CardHeader>
@@ -95,9 +96,7 @@ const StoryBook: React.FC<StoryBookProps> = ({
                     text={storyOption.paragraph}
                     isUserResponse={false}
                     typingCallBack={() => {
-                      console.log("h1");
                       setTypingLevel([...typingLevel.slice(0, index + 1), 2]);
-                      console.log(typingLevel);
                     }}
                     shouldType={
                       storyPath.length === index + 1 && lastTypingLevel === 1
@@ -110,7 +109,7 @@ const StoryBook: React.FC<StoryBookProps> = ({
             );
           })}
         </CardBody>
-        <CardFooter>
+        <CardFooter pt={2} width="100%" display="block">
           {lastTypingLevel === 2 && (
             <OptionsLayout
               options={latestOptions}

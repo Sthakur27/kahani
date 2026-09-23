@@ -63,8 +63,13 @@ def delete_story(story_id):
 # Get all top-level stories
 @main.route("/stories", methods=["GET"])
 def get_stories():
-    stories = Story.query.with_entities(Story.id, Story.title).all()
-    return jsonify([{"id": story.id, "title": story.title} for story in stories])
+    stories = Story.query.with_entities(Story.id, Story.title, Story.intro).all()
+    return jsonify(
+        [
+            {"id": story.id, "title": story.title, "intro": story.intro}
+            for story in stories
+        ]
+    )
 
 
 @main.route("/options", methods=["POST"])
