@@ -6,7 +6,9 @@ class Story(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     intro = db.Column(db.Text, nullable=False)
-    options = db.relationship("Option", backref="story", lazy=True)
+    options = db.relationship(
+        "Option", backref="story", lazy=True, cascade="all, delete-orphan"
+    )
 
 
 class Option(db.Model):
@@ -15,4 +17,4 @@ class Option(db.Model):
     paragraph = db.Column(db.Text, nullable=False)
     story_id = db.Column(db.Integer, db.ForeignKey("story.id"), nullable=False)
     parent_option_id = db.Column(db.Integer, db.ForeignKey("option.id"), nullable=True)
-    children = db.relationship("Option")
+    children = db.relationship("Option", cascade="all, delete-orphan")
